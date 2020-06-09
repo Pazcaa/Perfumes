@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.DAO.PerfumeDAOImpl;
+import modelo.dao.PerfumeDAOImpl;
 import modelo.pojo.Perfume;
 
 /**
  * Servlet implementation class PerfumeController
  */
-@WebServlet("/perfume")
+@WebServlet("/inicio")
 public class PerfumeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

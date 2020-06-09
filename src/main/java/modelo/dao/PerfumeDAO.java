@@ -1,6 +1,6 @@
-package modelo.DAO;
+package modelo.dao;
 
-import modelo.CRUD.CrudAble;
+import modelo.crud.CrudAble;
 import modelo.pojo.Perfume;
 
 public interface PerfumeDAO extends CrudAble<Perfume>{

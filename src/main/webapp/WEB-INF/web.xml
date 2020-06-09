@@ -14,7 +14,7 @@
 	 -->
 	 
 	<welcome-file-list>		
-		<welcome-file>perfume</welcome-file>		
+		<welcome-file>inicio</welcome-file>		
 	</welcome-file-list>
   
 </web-app>

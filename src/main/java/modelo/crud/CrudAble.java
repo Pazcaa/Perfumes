@@ -1,4 +1,4 @@
-package modelo.CRUD;
+package modelo.crud;
 
 import java.util.ArrayList;
 
