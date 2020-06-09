@@ -10,7 +10,7 @@
 	<h1>Tabla de Perfumes</h1>
 
 	<table id="table" class="table-primary table-bordered ">
-		<thead>
+		<thead class="blockquote text-center">
 			<tr>
 				<th>id</th>
 				<th>Nombre</th>
@@ -20,7 +20,7 @@
 		<tbody>
 			<c:forEach items="${Perfumes}" var ="perfume">
 				<tr>
-					<td>${perfume.id}</td>
+					<td class="blockquote text-center">${perfume.id}</td>
 					<td>${perfume.nombre}</td>
 					<td>${perfume.ml}</td>
 				</tr>
