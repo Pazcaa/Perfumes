@@ -12,15 +12,15 @@
 			<form action="formulario" method="post">
 				<div class="form-group">		
 					<label for="id">Id</label>
-					<input type="text" class="form-control" name="id" id="id" value="${Perfume.id }"  readonly>
+					<input type="text" class="form-control" name="id" id="id" value="${Perfume.id}"  readonly>
 				</div>	
 				<div class="form-group">	
 					<label for="nombre">Nombre del Perfume</label>
-					<input type="text" class="form-control"  name="nombre" id="nombre" value="${Perfume.nombre}" autofocus>
+					<input type="text" class="form-control"  name="nombre" id="nombre" value="${Perfume.nombre}" autofocus required>
 				</div>	
 				<div class="form-group">
 					<label for="ml">Formato (ml)</label>
-					<input type="text" class="form-control" name="ml" id="ml" value="${Perfume.ml}" >
+					<input type="text" class="form-control" name="ml" id="ml" value="${Perfume.ml}" required>
 				</div>	
 				<div class="form-group">
 					<label for="imagen">Imagen del Perfume</label>

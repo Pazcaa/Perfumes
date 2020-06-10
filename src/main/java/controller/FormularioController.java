@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.validator.internal.util.privilegedactions.SetAccessibility;
+
 
 
 import modelo.dao.PerfumeDAOImpl;
@@ -27,6 +27,8 @@ public class FormularioController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
 		
 		Perfume perfume = new Perfume();
 		
@@ -64,12 +66,20 @@ public class FormularioController extends HttpServlet {
 			PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
 			
 			try {
-				if (id == 0) {
-					dao.insert(perfume);
+				
+				if (nombre!= null && nombre.length() > 2 && nombre.length() <= 100) {
 					
+					if (id == 0) {
+						dao.insert(perfume);
+						
+					}
+					
+					message = new Message("success", "El perfume ha sido incorporado con exito al listado");
+					
+				}else {
+					message = new Message("danger", "El nombre del perfume debe tener entre 2 y 100 caracteres");
 				}
 				
-				message = new Message("success", "El perfume ha sido incorporado con exito al listado");
 				
 				
 			} catch (Exception e) {
