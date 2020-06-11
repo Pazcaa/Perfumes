@@ -1,16 +1,17 @@
 package controller;
 
 import java.io.IOException;
-
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import modelo.dao.PerfumeDAOImpl;
 import modelo.pojo.Message;
@@ -22,13 +23,16 @@ import modelo.pojo.Perfume;
 @WebServlet("/formulario")
 public class FormularioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance(); 
+	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private static Validator validator = factory.getValidator();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
+		
 		
 		Perfume perfume = new Perfume();
 		
@@ -74,13 +78,12 @@ public class FormularioController extends HttpServlet {
 			perfume.setMl(ml);
 			perfume.setImagen(imagen);
 			
+			Set<ConstraintViolation<Perfume>> violations = validator.validate(perfume);
 			
-			//lo integro a mi dao
-			PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
 			
 			try {
 				
-				if (nombre!= null && nombre.length() > 2 && nombre.length() <= 100) {
+				if (violations.isEmpty()) { //no hay errores de validación
 					
 					if (id == 0) {
 						dao.insert(perfume);
@@ -93,8 +96,16 @@ public class FormularioController extends HttpServlet {
 					request.getSession().setAttribute("message", message);
 					response.sendRedirect("inicio");
 					
-				}else {
-					message = new Message("danger", "El nombre del perfume debe tener entre 2 y 100 caracteres");
+				}else { //si hay errores de validacion, me los muestra en el mensaje
+					
+					String error = "";
+					for (ConstraintViolation<Perfume> cViolation : violations) {
+						
+						error += "<p>" + cViolation.getPropertyPath() + ": " + cViolation.getMessage() +  "</p>";
+					}
+					
+					message = new Message("danger", error);
+					
 					//enviamos los atributos a la vista
 					request.setAttribute("Perfume", perfume);
 					request.setAttribute("message", message);

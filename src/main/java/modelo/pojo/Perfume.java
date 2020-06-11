@@ -1,10 +1,22 @@
 package modelo.pojo;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Perfume {
 	
 	private int id;
+	
+	@NotBlank
+	@Size( min = 2, max = 100, message = "Debe contener entre 2 y 100 caracteres")
 	private String nombre;
+	
+	@Min( value = 5, message = "El formato del perfume no debe ser inferior a 5 ml (muestra)")
 	private int ml;
+	
+	@NotBlank(message = "Se debe ingresar la URL de la  imagen")
 	private String imagen;
 	
 	//constructor

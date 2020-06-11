@@ -19,15 +19,16 @@
 				</div>	
 				<div class="form-group">	
 					<label for="nombre">Nombre del Perfume</label>
-					<input type="text" class="form-control"  name="nombre" id="nombre" value="${Perfume.nombre}" autofocus required>
+					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${Perfume.nombre}" 
+							placeholder="Debe tener entre 3 y 100 caracteres" autofocus required>
 				</div>	
 				<div class="form-group">
 					<label for="ml">Formato (ml)</label>
-					<input type="text" class="form-control" name="ml" id="ml" value="${Perfume.ml}" required>
+					<input type="text" class="form-control" name="ml" id="ml" value="${Perfume.ml}" placeholder="el formato mas pequeño es de 5 ml" required>
 				</div>	
 				<div class="form-group">
 					<label for="imagen">Imagen del Perfume</label>
-					<input type="text" class="form-control" name="imagen" id="imagen" value="${Perfume.imagen}" >
+					<input type="text" class="form-control" name="imagen" id="imagen" value="${Perfume.imagen}" placeholder="ingresar el URL de la imagen" >
 				</div>	
 				<div class="form-group">
 					<input type="submit" class="btn-primary" name="guardar" value="Guardar">
