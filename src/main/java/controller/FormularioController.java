@@ -32,7 +32,20 @@ public class FormularioController extends HttpServlet {
 		
 		Perfume perfume = new Perfume();
 		
-		request.setAttribute("Perfume", perfume);
+		String idParameter = request.getParameter("id");
+		int id = Integer.parseInt(idParameter);
+	
+			try {
+				if (id != 0) {
+				request.setAttribute("Perfume", dao.getById(id));
+				}else {
+					request.setAttribute("Perfume", perfume);	
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
 		
@@ -71,28 +84,37 @@ public class FormularioController extends HttpServlet {
 					
 					if (id == 0) {
 						dao.insert(perfume);
-						
+						message = new Message("success", "El perfume ha sido incorporado con exito al listado");
+					}else {
+						dao.update(perfume);
+						message = new Message("success", "El perfume ha sido editado con exito al listado");
 					}
-					
-					message = new Message("success", "El perfume ha sido incorporado con exito al listado");
+					//enviamos los atributos a la vista
+					request.getSession().setAttribute("message", message);
+					response.sendRedirect("inicio");
 					
 				}else {
 					message = new Message("danger", "El nombre del perfume debe tener entre 2 y 100 caracteres");
+					//enviamos los atributos a la vista
+					request.setAttribute("Perfume", perfume);
+					request.setAttribute("message", message);
+					
+					//ir a la nueva vista
+					request.getRequestDispatcher("formulario.jsp").forward(request, response);
 				}
-				
 				
 				
 			} catch (Exception e) {
 				message = new Message("danger", "Lo sentimos, pero ha ocurrido una excepcion, " + e.getMessage());
 				e.printStackTrace();
+				
+				//enviamos los atributos a la vista
+				request.setAttribute("Perfume", perfume);
+				request.setAttribute("message", message);
+				
+				//ir a la nueva vista
+				request.getRequestDispatcher("formulario.jsp").forward(request, response);
 			}
-			
-			//enviamos los atributos a la vista
-			request.setAttribute("Perfume", perfume);
-			request.setAttribute("message", message);
-			
-			//ir a la nueva vista
-			request.getRequestDispatcher("formulario.jsp").forward(request, response);
 	
 	}
 

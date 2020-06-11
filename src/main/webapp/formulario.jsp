@@ -3,7 +3,10 @@
     
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
      
-<jsp:include page="includes/cabecera.jsp"></jsp:include>
+<jsp:include page="includes/cabecera.jsp">
+	<jsp:param name="pagina" value="formulario" />
+ 	<jsp:param name="title" value="Formulario" /> 
+</jsp:include>
 
 
 	<h1 class="text-center display-4 font-weight-normal">Formulario Nuevo Perfume</h1>

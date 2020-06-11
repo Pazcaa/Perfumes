@@ -3,7 +3,10 @@
     
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
      
-<jsp:include page="includes/cabecera.jsp"></jsp:include>
+<jsp:include page="includes/cabecera.jsp">
+	<jsp:param name="pagina" value="inicio" />
+ 	 <jsp:param name="title" value="Listado" /> 
+</jsp:include>
 
 
 
@@ -14,8 +17,9 @@
 			<tr>
 				<th>id</th>
 				<th>Nombre</th>
-				<th>ml</th>
-				<th>imagen</th>
+				<th>Formato (ml)</th>
+				<th>Imagen</th>
+				<th>Operación</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +29,8 @@
 					<td>${perfume.nombre}</td>
 					<td>${perfume.ml}</td>
 					<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${perfume.imagen}"></td>
+					<td class="blockquote text-center"><a href="formulario?id=${perfume.id}"> <i class="fas fa-edit fa-2x"></i></a>
+						<a href="eliminar?id=${perfume.id}"><i class="fas fa-trash fa-2x"></i></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

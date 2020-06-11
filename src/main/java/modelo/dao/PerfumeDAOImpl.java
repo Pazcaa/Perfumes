@@ -140,8 +140,9 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE)) {
 
 			pst.setString(1, pojo.getNombre());
-			pst.setInt(2, pojo.getId());
+			pst.setInt(2, pojo.getMl());
 			pst.setString(3, pojo.getImagen());
+			pst.setInt(4, pojo.getId());
 
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows != 1) {

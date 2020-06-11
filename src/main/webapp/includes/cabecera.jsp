@@ -22,20 +22,23 @@
     <link rel="stylesheet" href="css/styles.css">
 
     
-<title>Perfumes</title>
+<title>${param.title} |Perfumes</title>
 </head>
 <body>
 	<header>
-		<nav class="site-header sticky-top py-1">
+		<nav class="navbar navbar-dark bg-dark">
 		  <div class="container d-flex flex-column flex-md-row justify-content-between">
-		    <a class="py-2" href="inicio" aria-label="Product"><i class="fas fa-flask"></i></a>
-		    <a class="py-2 d-none d-md-inline-block" href="inicio">Listado Perfumes</a>
-		    <a class="py-2 d-none d-md-inline-block" href="formulario">Crear Registro Perfume</a>
+		    <a class="py-2" href="inicio" aria-label="Product"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></a>
+		    <a class="py-2 d-none d-md-inline-block  ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Listado Perfumes</a>
+		    <a class="py-2 d-none d-md-inline-block  ${ ( 'formulario' eq param.pagina ) ? 'active' : '' }" href="formulario?id=0">Crear Registro Perfume</a>
 		   
 		  </div>
 		</nav>
 	</header>
 
 <main class="container">
+
+
+
 
 <jsp:include page="message.jsp"></jsp:include>
