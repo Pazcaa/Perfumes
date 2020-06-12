@@ -14,7 +14,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import modelo.dao.PerfumeDAOImpl;
-import modelo.pojo.Message;
 import modelo.pojo.Perfume;
 
 /**

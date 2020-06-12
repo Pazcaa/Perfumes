@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
     
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,17 @@
 		    <a class="py-2" href="inicio" aria-label="Product"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></a>
 		    <a class="py-2 d-none d-md-inline-block  ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Listado Perfumes</a>
 		    <a class="py-2 d-none d-md-inline-block  ${ ( 'formulario' eq param.pagina ) ? 'active' : '' }" href="formulario?id=0">Crear Registro Perfume</a>
-		   
+		    
+		    <c:if test="${empty Usuario_login}">
+		    <a class="py-2 d-none d-md-inline-block  ${ ( 'login' eq param.pagina ) ? 'active' : '' }" href="login">Iniciar Sesion</a>  
+		    </c:if>
+		    
+		    <c:if test="${not empty Usuario_login}">
+		     <a class="py-2 d-none d-md-inline-block" href="#">${Usuario_login.nombre}</a>  
+		    <a class="py-2 d-none d-md-inline-block" href="logout">Cerrar Sesion</a>  
+		    </c:if>
+		    
+		     
 		  </div>
 		</nav>
 	</header>
