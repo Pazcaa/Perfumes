@@ -24,6 +24,31 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `perfumes` /*!40100 DEFAULT CHARACTER S
 USE `perfumes`;
 
 --
+-- Table structure for table `marca`
+--
+
+DROP TABLE IF EXISTS `marca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marca` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `marca_perfume_UN` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marca`
+--
+
+LOCK TABLES `marca` WRITE;
+/*!40000 ALTER TABLE `marca` DISABLE KEYS */;
+INSERT INTO `marca` VALUES (3,'Calvin Klein'),(2,'Carolina Herrera'),(5,'Donna Karan'),(6,'Hugo Boss'),(4,'Jesus del Pozo'),(1,'Lancome'),(7,'Paco Rabanne');
+/*!40000 ALTER TABLE `marca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `perfume`
 --
 
@@ -35,9 +60,12 @@ CREATE TABLE `perfume` (
   `nombre` varchar(100) NOT NULL,
   `ml` int(11) NOT NULL,
   `imagen` varchar(255) NOT NULL DEFAULT 'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',
+  `id_marca` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `perfume_UN` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `perfume_UN` (`nombre`),
+  KEY `FK_marca` (`id_marca`),
+  CONSTRAINT `FK_marca` FOREIGN KEY (`id_marca`) REFERENCES `marca` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +74,7 @@ CREATE TABLE `perfume` (
 
 LOCK TABLES `perfume` WRITE;
 /*!40000 ALTER TABLE `perfume` DISABLE KEYS */;
-INSERT INTO `perfume` VALUES (2,'Miracle Lancome',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(3,'CH VIP',125,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(4,'in2you CK',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(5,'Halloween',30,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(6,'DKNY Be Delicius',100,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(7,'Hugo Man HB',125,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(8,'Invictus Paco Rabanne',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(14,'hola',100,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(25,'one million',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(26,'la vie Lancome',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(27,'black',30,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg'),(28,'kiss',100,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg');
+INSERT INTO `perfume` VALUES (2,'Miracle ',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',1),(3,'CH VIP',125,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',2),(4,'in2you',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',3),(5,'Halloween',30,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',4),(6,'Be Delicius',100,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',5),(7,'Hugo Man',125,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',6),(8,'Invictus',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',7),(25,'one million',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',7),(26,'la vie ',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',1),(27,'UltraViolet',30,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',7),(28,'VIP Black',100,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',2),(29,'oi',50,'https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg',1);
 /*!40000 ALTER TABLE `perfume` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +92,7 @@ CREATE TABLE `usuario` (
   `imagen` varchar(255) NOT NULL DEFAULT 'https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg',
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario_UN` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +101,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Benjamin','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(2,'Paz','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(3,'Carlos','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(4,'Gaizka','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(5,'Manel','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg');
+INSERT INTO `usuario` VALUES (1,'Benjamin','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(2,'Paz','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(3,'Carlos','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(4,'Gaizka','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(5,'Manel','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg'),(6,'Admin','1234','https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -86,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-12 14:09:46
+-- Dump completed on 2020-06-19 10:41:55
