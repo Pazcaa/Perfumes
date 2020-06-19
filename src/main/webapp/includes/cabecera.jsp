@@ -26,18 +26,22 @@
 <title>${param.title} |Perfumes</title>
 </head>
 <body>
-	<header class="bg-dark">
+	<header class="bg-dark shadow-sm">
 	
-	<div class="container d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm">
+	<div class="container d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
 	  <h5 class="my-0 mr-md-auto font-weight-normal text-primary"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></h5>
 	  <nav class="my-2 my-md-0 mr-md-3 navbar-dark">
-	    <a class="py-2 d-none d-md-inline-block  ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Listado Perfumes</a>
+	    <a class="py-2 d-none d-md-inline-block  ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Perfumes</a>
 		<a class="py-2 d-none d-md-inline-block  ${ ( 'formulario' eq param.pagina ) ? 'active' : '' }" href="formulario?id=0">Nuevo Perfume</a>
 		
 		<c:if test="${not empty Usuario_login}">
-		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>  
 		<a class="py-2 d-none d-md-inline-block text-primary active">${Usuario_login.nombre}</a>
 		</c:if>
+		
+		<c:if test="${'Admin' eq Usuario_login.nombre }">
+		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>  
+		</c:if>
+		
 		
 	  </nav>
 	   	<c:if test="${empty Usuario_login}">

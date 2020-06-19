@@ -26,6 +26,9 @@
 			<input type="submit" class="btn-primary" name="login" value="Iniciar Sesion">
 		</div>
 	</form>
+	
+	<p>¿No eres usuario aún? Registrate <a href="new_login">Aquí</a></p>
+	
 </div>
 
 
