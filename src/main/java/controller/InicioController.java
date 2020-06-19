@@ -16,31 +16,28 @@ import modelo.pojo.Perfume;
  * Servlet implementation class PerfumeController
  */
 @WebServlet("/inicio")
-public class PerfumeController extends HttpServlet {
+public class InicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static PerfumeDAOImpl perfumeDAO = PerfumeDAOImpl.getInstance();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
-		
-		ArrayList<Perfume> perfumes = dao.getAll();
-		
-		request.setAttribute("Perfumes", perfumes);
-		
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
-		
+		doProcess(request,response);	
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		doProcess(request,response);
+	}
+	
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setAttribute("Perfumes", perfumeDAO.getAll());
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 	}
 
 }

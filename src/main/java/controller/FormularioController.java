@@ -13,7 +13,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import modelo.dao.MarcaDAOImpl;
 import modelo.dao.PerfumeDAOImpl;
+import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 
 /**
@@ -22,7 +24,8 @@ import modelo.pojo.Perfume;
 @WebServlet("/formulario")
 public class FormularioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance(); 
+	private static PerfumeDAOImpl daoPerfume = PerfumeDAOImpl.getInstance(); 
+	private static MarcaDAOImpl daoMarca = MarcaDAOImpl.getInstance();
 	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private static Validator validator = factory.getValidator();
 
@@ -35,12 +38,13 @@ public class FormularioController extends HttpServlet {
 		
 		Perfume perfume = new Perfume();
 		
+		
 		String idParameter = request.getParameter("id");
 		int id = Integer.parseInt(idParameter);
 	
 			try {
 				if (id != 0) {
-				request.setAttribute("Perfume", dao.getById(id));
+				request.setAttribute("Perfume", daoPerfume.getById(id));
 				}else {
 					request.setAttribute("Perfume", perfume);	
 				}
@@ -49,7 +53,7 @@ public class FormularioController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		
+		request.setAttribute("marcas", daoMarca.getAll());
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
 		
 	}
@@ -64,18 +68,23 @@ public class FormularioController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String mlParameter = request.getParameter("ml");
 			String imagen = request.getParameter("imagen");
+			String marcaId = request.getParameter("marca_id");
 			
 			int id = Integer.parseInt(idParameter);
+			int idMarca = Integer.parseInt(marcaId);
 			int ml = Integer.parseInt(mlParameter);
 			
 			//creo mis nuevos atributos
 			Perfume perfume = new Perfume();
+			Marca marca = new Marca();
 			Message message = new Message();
 			
 			perfume.setId(id);
 			perfume.setNombre(nombre);
 			perfume.setMl(ml);
 			perfume.setImagen(imagen);
+			marca.setId(idMarca);
+			perfume.setMarca(marca);
 			
 			Set<ConstraintViolation<Perfume>> violations = validator.validate(perfume);
 			
@@ -85,10 +94,10 @@ public class FormularioController extends HttpServlet {
 				if (violations.isEmpty()) { //no hay errores de validación
 					
 					if (id == 0) {
-						dao.insert(perfume);
+						daoPerfume.insert(perfume);
 						message = new Message("success", "El perfume ha sido incorporado con exito al listado");
 					}else {
-						dao.update(perfume);
+						daoPerfume.update(perfume);
 						message = new Message("success", "El perfume ha sido editado con exito al listado");
 					}
 					//enviamos los atributos a la vista
@@ -121,6 +130,7 @@ public class FormularioController extends HttpServlet {
 				//enviamos los atributos a la vista
 				request.setAttribute("Perfume", perfume);
 				request.setAttribute("message", message);
+				request.setAttribute("marcas", daoMarca.getAll() );
 				
 				//ir a la nueva vista
 				request.getRequestDispatcher("formulario.jsp").forward(request, response);

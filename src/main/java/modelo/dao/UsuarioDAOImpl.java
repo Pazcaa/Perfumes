@@ -31,8 +31,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 	
 		// executeQUery => ResultSet
-		private final String SQL_GET_ALL 		= "SELECT id, nombre, password, imagen FROM usuario ORDER BY id DESC;";
-		private final String SQL_GET_BY_ID 		= "SELECT id, nombre, password, imagen FROM usuario WHERE id = ? ;";
+		private final String SQL_GET_ALL 		= "SELECT id, nombre, password, imagen FROM usuario ORDER BY id DESC LIMIT 500;";
+		private final String SQL_GET_BY_ID 		= "SELECT id, nombre, password, imagen FROM usuario WHERE id = ?;";
 		private final String SQL_EXISTE 		= "SELECT id, nombre, password, imagen FROM usuario WHERE nombre = ? AND password = ? ; ";
 		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)

@@ -17,6 +17,7 @@
 			<tr>
 				<th>id</th>
 				<th>Nombre</th>
+				<th>Marca</th>
 				<th>Formato (ml)</th>
 				<th>Imagen</th>
 				<th>Operación</th>
@@ -27,6 +28,7 @@
 				<tr>
 					<td class="blockquote text-center">${perfume.id}</td>
 					<td>${perfume.nombre}</td>
+					<td>${perfume.marca.nombre}</td>
 					<td>${perfume.ml}</td>
 					<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${perfume.imagen}"></td>
 					<td class="blockquote text-center"><a href="formulario?id=${perfume.id}"> <i class="fas fa-edit fa-2x"></i></a>

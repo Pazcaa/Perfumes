@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.conexion.ConnectionManager;
+import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 
 public class PerfumeDAOImpl implements PerfumeDAO{
@@ -29,13 +30,32 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 	}
 	
 		// executeQUery => ResultSet
-		private final String SQL_GET_ALL 		= "SELECT id, nombre, ml, imagen FROM perfume ORDER BY id DESC;";
-		private final String SQL_GET_BY_ID 		= "SELECT id, nombre, ml, imagen FROM perfume WHERE id = ? ;";
+		private final String SQL_GET_ALL 		= 	" SELECT " + 
+													" p.id 		'perfume_id', " + 
+													" p.nombre 	'perfume_nombre', " + 
+													" ml," + 
+													" imagen, " + 
+													" m.id 		'marca_id', "+
+													" m.nombre 	'marca_nombre' " + 
+													" FROM perfume p, marca m " + 
+													" WHERE p.id_marca = m.id  " + 
+													" ORDER BY p.id DESC LIMIT 500; ";
+		
+											
+		private final String SQL_GET_BY_ID 		= 	" SELECT " + 
+													" p.id 'perfume_id', " + 
+													" p.nombre 'perfume_nombre', " + 
+													" ml, " + 
+													" imagen, " + 
+													" m.id 'marca_id', " + 
+													" m.nombre 'marca_nombre' " + 
+													" FROM perfume p, marca m " + 
+													" WHERE p.id_marca = m.id  AND p.id = ?;";
 		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
-		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen) VALUES ( ? ,?, ?); ";
+		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca) VALUES ( ? ,?, ?, ?); ";
 		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
-		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ? WHERE id = ? ; ";		
+		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ? WHERE id = ? ; ";		
 	
 	@Override
 	public ArrayList<Perfume> getAll() {
@@ -108,9 +128,11 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				pst.setString(1, pojo.getNombre());
 				pst.setInt(2, pojo.getMl());
 				pst.setString(3, pojo.getImagen());
+				pst.setInt(4, pojo.getMarca().getId());
 				
-				int AffectedRows = pst.executeUpdate();
-				if (AffectedRows == 1) {
+				
+				int affectedRows = pst.executeUpdate();
+				if (affectedRows == 1) {
 					// conseguir el ID que nos ha arrojado
 
 				try (ResultSet rskeys = pst.getGeneratedKeys()) {
@@ -142,7 +164,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			pst.setString(1, pojo.getNombre());
 			pst.setInt(2, pojo.getMl());
 			pst.setString(3, pojo.getImagen());
-			pst.setInt(4, pojo.getId());
+			pst.setInt(4, pojo.getMarca().getId());
+			pst.setInt(5, pojo.getId());
 
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows != 1) {
@@ -159,12 +182,17 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 	private Perfume mapper(ResultSet rs) throws SQLException {
 		
 		Perfume perfume = new Perfume();
+		Marca marca = new Marca();
 		
 		//recupero columnas de resultados y creo pojo para su uso
-		perfume.setId(rs.getInt("id"));
-		perfume.setNombre(rs.getString("nombre"));
+		perfume.setId(rs.getInt("perfume_id"));
+		perfume.setNombre(rs.getString("perfume_nombre"));
 		perfume.setMl(rs.getInt("ml"));
 		perfume.setImagen(rs.getString("imagen"));
+		
+		marca.setId(rs.getInt("marca_id"));
+		marca.setNombre(rs.getString("marca_nombre"));
+		perfume.setMarca(marca);
 		
 		return perfume;
 		

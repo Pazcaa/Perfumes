@@ -19,35 +19,18 @@ public class Perfume {
 	@NotBlank(message = "Se debe ingresar la URL de la  imagen")
 	private String imagen;
 	
+	
 	//constructor
+	public Marca marca;
+	
 	public Perfume() {
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.ml = 0;
 		this.imagen = "https://cdn2.dineroenimagen.com/media/dinero/styles/gallerie/public/images/2019/04/perfume-px.jpg";
+		this.marca = new Marca();
 	}
-
-	
-	public String getImagen() {
-		return imagen;
-	}
-
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
-
-	public int getMl() {
-		return ml;
-	}
-
-
-	public void setMl(int ml) {
-		this.ml = ml;
-	}
-
 
 	//Getters & Setters
 	public int getId() {
@@ -66,10 +49,40 @@ public class Perfume {
 		this.nombre = nombre;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+
+	public int getMl() {
+		return ml;
+	}
+
+
+	public void setMl(int ml) {
+		this.ml = ml;
+	}
+	
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Perfume [id=" + id + ", nombre=" + nombre + ", ml=" + ml + ", imagen=" + imagen + "]";
+		return "Perfume [id=" + id + ", nombre=" + nombre + ", ml=" + ml + ", imagen=" + imagen + ", marca=" + marca
+				+ "]";
 	}
 	
 	

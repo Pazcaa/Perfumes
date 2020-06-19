@@ -31,6 +31,14 @@
 					<input type="text" class="form-control" name="imagen" id="imagen" value="${Perfume.imagen}" placeholder="ingresar el URL de la imagen" >
 				</div>	
 				<div class="form-group">
+					<label for="marca_id"> Marca:</label>
+						<select class="casillas form-control" name="marca_id" id="marca_id">
+							<c:forEach items="${marcas}" var="marca" >
+								<option value="${marca.id }"  ${ (marca.id eq Perfume.marca.id) ? "selected": "" } >${marca.nombre}</option>
+							</c:forEach>
+						</select>
+				</div>
+				<div class="form-group">
 					<input type="submit" class="btn-primary" name="guardar" value="Guardar">
 				</div>
 			</form>
