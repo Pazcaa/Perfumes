@@ -30,18 +30,32 @@
 	
 	<div class="container d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
 	  <h5 class="my-0 mr-md-auto font-weight-normal text-primary"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></h5>
+	<div class="dropdown">
+		  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Marca
+		  </button>
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		  <c:forEach items="${Marcas}" var="marca">
+		    	<a class="dropdown-item" href="inicio?idMarca=${marca.id}">${marca.nombre}</a>
+		 </c:forEach>  
+		  </div>
+		</div>
+	
+	
 	  <nav class="my-2 my-md-0 mr-md-3 navbar-dark">
-	    <a class="py-2 d-none d-md-inline-block  ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Perfumes</a>
-		<a class="py-2 d-none d-md-inline-block  ${ ( 'formulario' eq param.pagina ) ? 'active' : '' }" href="formulario?id=0">Nuevo Perfume</a>
+	  
+	  
 		
-		<c:if test="${not empty Usuario_login}">
-		<a class="py-2 d-none d-md-inline-block text-primary active">${Usuario_login.nombre}</a>
-		</c:if>
+	    <a class="py-2 d-none d-md-inline-block  ${ ( 'listado' eq param.pagina ) ? 'active' : '' }" href="lista">Lista Perfumes</a>
+		<a class="py-2 d-none d-md-inline-block  ${ ( 'formulario' eq param.pagina ) ? 'active' : '' }" href="formulario?id=0">Nuevo Perfume</a>
 		
 		<c:if test="${'Admin' eq Usuario_login.nombre }">
 		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>  
 		</c:if>
 		
+		<c:if test="${not empty Usuario_login}">
+		<a class="py-2 d-none d-md-inline-block text-primary active">${Usuario_login.nombre}</a>
+		</c:if>
 		
 	  </nav>
 	   	<c:if test="${empty Usuario_login}">

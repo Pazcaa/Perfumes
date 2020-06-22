@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+
 import modelo.conexion.ConnectionManager;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
@@ -40,6 +42,29 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  " + 
 													" ORDER BY p.id DESC LIMIT 500; ";
+		
+		private final String SQL_GET_LAST 		= 	" SELECT " + 
+													"	 p.id     'perfume_id', " + 
+													"	 p.nombre 'perfume_nombre', " + 
+													"	 ml, " + 
+													"	 imagen, " + 
+													"	 m.id     'marca_id', " + 
+													"	 m.nombre 'marca_nombre'	" + 
+													" FROM perfume p , marca m " + 
+													" WHERE p.id_marca  = m.id " + 
+													" ORDER BY p.id DESC LIMIT ? ; ";
+		
+		private final String SQL_GET_BY_MARCA = 	" SELECT " + 
+													"	 p.id     'perfume_id', " + 
+													"	 p.nombre 'perfume_nombre', " + 
+													"	 ml, " + 
+													"	 imagen, " + 
+													"	 m.id     'marca_id', " + 
+													"	 m.nombre 'marca_nombre'	" + 
+													" FROM perfume p , marca m " + 
+													" WHERE p.id_marca  = m.id " +
+													" AND m.id = ? " +   // filtramos por el id de la categoria
+													" ORDER BY p.id DESC LIMIT ? ; ";
 		
 											
 		private final String SQL_GET_BY_ID 		= 	" SELECT " + 
@@ -76,6 +101,46 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfumes;
 	}
 
+	@Override
+	public ArrayList<Perfume> getLast(int numReg) {
+		ArrayList<Perfume> perfumes = new ArrayList<Perfume>();		
+		try (
+				Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
+			) {			
+					pst.setInt( 1, numReg);
+					try ( ResultSet rs = pst.executeQuery() ){
+						while ( rs.next() ) {					
+							perfumes.add( mapper(rs) );					
+						}
+					}
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
+		return perfumes;
+	}
+
+	@Override
+	public ArrayList<Perfume> getAllByMarca(int idMarca, int numReg) {
+		ArrayList<Perfume> perfumes = new ArrayList<Perfume>();		
+		try (
+				Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_MARCA);
+			) {			
+					pst.setInt( 1, idMarca);
+					pst.setInt( 2, numReg);
+					try ( ResultSet rs = pst.executeQuery() ){
+						while ( rs.next() ) {					
+							perfumes.add( mapper(rs) );					
+						}
+					}
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
+		return perfumes;
+	}
 
 	@Override
 	public Perfume getById(int id) throws Exception {
@@ -178,6 +243,17 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 
 		return pojo;
 	}
+	
+
+	@Override
+	public ArrayList<Perfume> getAllByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
 
 	private Perfume mapper(ResultSet rs) throws SQLException {
 		
@@ -197,4 +273,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
+	
+
 }

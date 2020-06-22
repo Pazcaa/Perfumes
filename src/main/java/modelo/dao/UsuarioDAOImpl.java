@@ -128,7 +128,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			}
 
 		} catch (Exception e) {
-			throw new Exception("No se ha podido guardar el usuario " + pojo.getNombre());
+			throw new Exception("no se ha podido guardar el usuario " + pojo.getNombre() + " porque ya existe.");
 		}
 		return pojo;
 	}

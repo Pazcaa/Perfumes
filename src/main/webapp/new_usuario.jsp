@@ -19,7 +19,7 @@
 				<div class="form-group">	
 					<label for="nombre">Nombre de Usuario</label>
 					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${Usuario.nombre}" 
-							placeholder="Debe tener entre 3 y 100 caracteres" autofocus required>
+							placeholder="Debe tener entre 2 y 100 caracteres" autofocus required>
 				</div>	
 				<div class="form-group">
 					<label for="password">Contraseña</label>
