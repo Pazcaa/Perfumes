@@ -35,11 +35,12 @@
 		    Marcas
 		  </button>
 		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		  <c:forEach items="${Marcas}" var="marca">
-		    	<a class="dropdown-item" href="inicio?idMarca=${marca.id}">${marca.nombre}</a>
-		 </c:forEach>  
+		  	<a class="dropdown-item" href="inicio">Todos</a>
+		  	<c:forEach items="${Marcas}" var="marca">
+		    	<a class="dropdown-item" href="inicio?idMarca=${marca.id}&nombreMarca=${marca.nombre}">${marca.nombre}</a>
+			 </c:forEach>  
 		  </div>
-		</div>
+	</div>
 	
 	
 	  <nav class="my-2 my-md-0 mr-md-3 navbar-dark">

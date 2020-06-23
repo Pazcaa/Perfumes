@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+   
+      
      
 <jsp:include page="includes/cabecera.jsp">
 	<jsp:param name="pagina" value="inicio" />
@@ -9,9 +11,11 @@
 </jsp:include>
 
 
-
-	<h1 class="text-center display-4 font-weight-normal">Listado de Perfumes</h1>
 	
+	<h1 class="text-center display-4 font-weight-normal">Listado de los ultimos ${encabezado1}  perfumes para</h1>
+	<h1 class="text-center display-4 font-weight-normal">${encabezado2} </h1>
+	
+	<h2>${encabezado}</h2>
 	
 	<div class="row-card">
 		<c:forEach items="${Perfumes}" var ="perfume">

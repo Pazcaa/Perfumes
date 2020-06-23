@@ -40,18 +40,24 @@ public class InicioController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String idParameter = request.getParameter("idMarca");
+		String nombreParameter = (request.getParameter("nombreMarca") == null) ? "todas las marcas" : request.getParameter("nombreMarca");
 		
+		ArrayList<Perfume> perfumes = new ArrayList<Perfume>();
 		
 		if (idParameter != null) {
 			int idMarca = Integer.parseInt(idParameter);
-			request.setAttribute("Perfumes", perfumeDAO.getAllByMarca(idMarca, 10));
+			//request.setAttribute("Perfumes", perfumeDAO.getAllByMarca(idMarca, 10));
+			perfumes = perfumeDAO.getAllByMarca(idMarca, 10);
 			
-		}else {
-			//request.setAttribute("Perfumes", perfumeDAO.getAll());
-			request.setAttribute("Perfumes", perfumeDAO.getLast(10));
-		}
+			}else {
+				//request.setAttribute("Perfumes", perfumeDAO.getAll());
+				//request.setAttribute("Perfumes", perfumeDAO.getLast(10));
+				perfumes = perfumeDAO.getLast(10);
+			}
 		
-		
+		request.setAttribute("Perfumes", perfumes);
+		request.setAttribute("encabezado1", "<b>" + perfumes.size() + "</b>");
+		request.setAttribute("encabezado2", "<b>" + nombreParameter + "</b>");
 		request.setAttribute("Marcas", marcaDAO.getAll());
 		//request.setAttribute("Perfumes", perfumeDAO.getAll());
 		request.getRequestDispatcher("index.jsp").forward(request, response);
