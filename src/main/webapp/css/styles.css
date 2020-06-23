@@ -22,11 +22,12 @@ p {
 	
 }
 .img-table {
-	height: 100px;
+	height: 180px;
 	width: auto;
 	display: block; 
 	margin-left: auto; 
 	margin-right: auto;
+	
 	
 }
 
@@ -42,6 +43,22 @@ p {
 	margin: auto;
 }
 
+
+.row-card {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.row-card .card {
+	width: 32.5%;
+	margin-right: 0.5%;
+	margin-bottom: 0.5%;
+	box-sizing: content-box;
+}
+
+.row-card .card img {
+	margin-top: 10px;
+}
 
 
 

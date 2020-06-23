@@ -29,10 +29,10 @@
 	<header class="bg-dark shadow-sm">
 	
 	<div class="container d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
-	  <h5 class="my-0 mr-md-auto font-weight-normal text-primary"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></h5>
+	  <h5 class="my-0 mr-md-auto font-weight-normal text-primary"><a href="inicio"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></a></h5>
 	<div class="dropdown">
 		  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Marca
+		    Marcas
 		  </button>
 		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		  <c:forEach items="${Marcas}" var="marca">

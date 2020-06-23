@@ -13,11 +13,11 @@
 	<h1 class="text-center display-4 font-weight-normal">Listado de Perfumes</h1>
 	
 	
-	<div class="row">
+	<div class="row-card">
 		<c:forEach items="${Perfumes}" var ="perfume">
 		<div class="card">
 				 
-			    <img src="${perfume.imagen}" class="card-img-top" alt="perfume">
+			    <img src="${perfume.imagen}" class="card-img-top img-table img-thumbnail" alt="${perfume.nombre}">
 			    <div class="card-body">
 			      <h5 class="card-title">${perfume.nombre}</h5>
 			      <p class="card-text">${perfume.marca.nombre}</p>
@@ -29,6 +29,9 @@
 			  </div>
 </c:forEach>
 </div>	
+
+
+	
 
 
 
