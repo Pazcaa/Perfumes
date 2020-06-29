@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.dao.MarcaDAOImpl;
-import modelo.dao.PerfumeDAOImpl;
+import org.apache.log4j.Logger;
+
+import modelo.dao.impl.MarcaDAOImpl;
+import modelo.dao.impl.PerfumeDAOImpl;
 import modelo.pojo.Perfume;
 
 /**
@@ -19,6 +21,7 @@ import modelo.pojo.Perfume;
 @WebServlet("/inicio")
 public class InicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger LOG = Logger.getLogger(InicioController.class);
 	private static PerfumeDAOImpl perfumeDAO = PerfumeDAOImpl.getInstance();
 	private static MarcaDAOImpl marcaDAO = MarcaDAOImpl.getInstance();
 
@@ -44,23 +47,33 @@ public class InicioController extends HttpServlet {
 		
 		ArrayList<Perfume> perfumes = new ArrayList<Perfume>();
 		
-		if (idParameter != null) {
-			int idMarca = Integer.parseInt(idParameter);
-			//request.setAttribute("Perfumes", perfumeDAO.getAllByMarca(idMarca, 10));
-			perfumes = perfumeDAO.getAllByMarca(idMarca, 10);
+		try {
+			if (idParameter != null) {
+				int idMarca = Integer.parseInt(idParameter);
+				//request.setAttribute("Perfumes", perfumeDAO.getAllByMarca(idMarca, 10));
+				perfumes = perfumeDAO.getAllByMarca(idMarca, 10);
+				
+				}else {
+					//request.setAttribute("Perfumes", perfumeDAO.getAll());
+					//request.setAttribute("Perfumes", perfumeDAO.getLast(10));
+					perfumes = perfumeDAO.getLast(10);
+				}
 			
-			}else {
-				//request.setAttribute("Perfumes", perfumeDAO.getAll());
-				//request.setAttribute("Perfumes", perfumeDAO.getLast(10));
-				perfumes = perfumeDAO.getLast(10);
-			}
+		} catch (Exception e) {
+			LOG.error(e);
+		}finally {
+			request.setAttribute("Perfumes", perfumes);
+			request.setAttribute("encabezado1", "<b>" + perfumes.size() + "</b>");
+			request.setAttribute("encabezado2", "<b>" + nombreParameter + "</b>");
+			request.setAttribute("Marcas", marcaDAO.getAll());
+			//request.setAttribute("Perfumes", perfumeDAO.getAll());
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 		
-		request.setAttribute("Perfumes", perfumes);
-		request.setAttribute("encabezado1", "<b>" + perfumes.size() + "</b>");
-		request.setAttribute("encabezado2", "<b>" + nombreParameter + "</b>");
-		request.setAttribute("Marcas", marcaDAO.getAll());
-		//request.setAttribute("Perfumes", perfumeDAO.getAll());
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+		
+		
+		
 		
 	}
 

@@ -13,8 +13,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import modelo.dao.MarcaDAOImpl;
-import modelo.dao.PerfumeDAOImpl;
+import modelo.dao.impl.MarcaDAOImpl;
+import modelo.dao.impl.PerfumeDAOImpl;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 

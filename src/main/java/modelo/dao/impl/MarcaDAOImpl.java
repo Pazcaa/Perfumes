@@ -1,4 +1,4 @@
-package modelo.dao;
+package modelo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import modelo.conexion.ConnectionManager;
+import modelo.dao.MarcaDAO;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 
 public class MarcaDAOImpl implements MarcaDAO {
 	
+	private final static Logger LOG = Logger.getLogger(MarcaDAOImpl.class);
 	private static MarcaDAOImpl INSTANCE = null;
 	
 	private MarcaDAOImpl() {
@@ -37,14 +41,14 @@ public class MarcaDAOImpl implements MarcaDAO {
 		try (	Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();){
-			
+			LOG.debug(pst);
 			while (rs.next()) {
 			
 				//guardo en el arraylist con su id
 				marcas.add(mapper(rs));
 			}	
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return marcas;
 	}

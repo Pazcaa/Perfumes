@@ -14,7 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import modelo.dao.UsuarioDAOImpl;
+import modelo.dao.impl.UsuarioDAOImpl;
 import modelo.pojo.Usuario;
 
 /**

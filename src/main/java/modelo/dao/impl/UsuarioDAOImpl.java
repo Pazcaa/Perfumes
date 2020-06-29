@@ -1,4 +1,4 @@
-package modelo.dao;
+package modelo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,13 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import modelo.conexion.ConnectionManager;
+import modelo.dao.UsuarioDAO;
 import modelo.pojo.Usuario;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 	
-	//patron singleton
-	private static UsuarioDAOImpl INSTANCE = null;
+	private final static Logger LOG = Logger.getLogger(UsuarioDAOImpl.class);
+	private static UsuarioDAOImpl INSTANCE = null;//patron singleton
 	
 	//constructor del INSTANCE
 	public UsuarioDAOImpl() {
@@ -48,13 +51,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery()){
 			
+			LOG.debug(pst);
 			while (rs.next()) {
 				//guardo cada "rs" en el arraylist
 				usuarios.add(mapper(rs));
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return usuarios;
 	}
@@ -68,6 +72,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID)){
 			
 			pst.setInt(1, id);
+			LOG.debug(pst);
 			
 			try (	ResultSet rs = pst.executeQuery()){
 				if (rs.next()) {
@@ -79,7 +84,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			} 
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return usuario;
@@ -93,6 +98,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE)){
 			
 			pst.setInt(1, id);
+			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 
 			if (affectedRows != 1) {
@@ -111,6 +117,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				pst.setString(1, pojo.getNombre());
 				pst.setString(2, pojo.getPassword());
 				pst.setString(3, pojo.getImagen());
+				LOG.debug(pst);
 				
 				int AffectedRows = pst.executeUpdate();
 				if (AffectedRows == 1) {
@@ -147,6 +154,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			pst.setString(2, pojo.getPassword());
 			pst.setString(3, pojo.getImagen());
 			pst.setInt(4, pojo.getId());
+			LOG.debug(pst);
 
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows != 1) {
@@ -169,6 +177,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			pst.setString(1, nombre);
 			pst.setString(2, password);
+			LOG.debug(pst);
 			
 			try (ResultSet rs = pst.executeQuery();) {
 				if (rs.next()) {
@@ -176,7 +185,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				} 
 			}//try
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return usuario;

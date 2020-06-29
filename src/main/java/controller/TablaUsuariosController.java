@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.dao.UsuarioDAOImpl;
+import modelo.dao.impl.UsuarioDAOImpl;
 import modelo.pojo.Usuario;
 
 /**

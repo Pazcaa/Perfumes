@@ -1,4 +1,4 @@
-package modelo.dao;
+package modelo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,16 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 
 import modelo.conexion.ConnectionManager;
+import modelo.dao.PerfumeDAO;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 
 public class PerfumeDAOImpl implements PerfumeDAO{
 	
-	//patrón singleton
-	private static PerfumeDAOImpl INSTANCE = null;
+	private final static Logger LOG = Logger.getLogger(PerfumeDAOImpl.class);
+	private static PerfumeDAOImpl INSTANCE = null; //patrón singleton
 	
 	//constructor del INSTANCE
 	private PerfumeDAOImpl() {
@@ -90,13 +93,14 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			PreparedStatement pst = conexion.prepareStatement(SQL_GET_ALL);
 			ResultSet rs = pst.executeQuery();){
 		
+		LOG.debug(pst);
 		while (rs.next()) {
 		
 			//guardo en el arraylist con su id
 			perfumes.add(mapper(rs));
 		}	
 	} catch (Exception e) {
-		e.printStackTrace();
+		LOG.error(e);
 	}	
 		return perfumes;
 	}
@@ -109,6 +113,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
 			) {			
 					pst.setInt( 1, numReg);
+					LOG.debug(pst);
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							perfumes.add( mapper(rs) );					
@@ -116,7 +121,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 					}
 			
 		} catch (Exception e) {			
-			e.printStackTrace();			
+			LOG.error(e);				
 		}
 		return perfumes;
 	}
@@ -130,6 +135,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			) {			
 					pst.setInt( 1, idMarca);
 					pst.setInt( 2, numReg);
+					LOG.debug(pst);
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							perfumes.add( mapper(rs) );					
@@ -137,7 +143,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 					}
 			
 		} catch (Exception e) {			
-			e.printStackTrace();			
+			LOG.error(e);				
 		}
 		return perfumes;
 	}
@@ -150,6 +156,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID);) {
 			
 			pst.setInt(1, id);
+			LOG.debug(pst);
 			try (ResultSet rs = pst.executeQuery();){
 				if (rs.next()) {
 					perfume = mapper(rs);
@@ -159,7 +166,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return perfume;
 	}
@@ -173,6 +180,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE);) {
 
 				pst.setInt(1, id);
+				LOG.debug(pst);
 				int affectedRows = pst.executeUpdate();
 
 				if (affectedRows != 1) {
@@ -195,7 +203,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				pst.setString(3, pojo.getImagen());
 				pst.setInt(4, pojo.getMarca().getId());
 				
-				
+				LOG.debug(pst);
 				int affectedRows = pst.executeUpdate();
 				if (affectedRows == 1) {
 					// conseguir el ID que nos ha arrojado
@@ -231,7 +239,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			pst.setString(3, pojo.getImagen());
 			pst.setInt(4, pojo.getMarca().getId());
 			pst.setInt(5, pojo.getId());
-
+			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows != 1) {
 				throw new Exception("No se ha podido eliminar el registro con id =" + pojo.getId());
