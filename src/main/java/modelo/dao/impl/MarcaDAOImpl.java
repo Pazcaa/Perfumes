@@ -32,6 +32,13 @@ public class MarcaDAOImpl implements MarcaDAO {
 	
 	// excuteQuery => ResultSet
 	private final String SQL_GET_ALL = "SELECT id, nombre FROM marca ORDER BY nombre ASC;";
+	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM marca WHERE  id = ?;";
+	
+	// excecuteUpdate => AffectedRows (numero de filas afectadas)
+	private final String SQL_INSERT = "INSERT INTO marca (nombre) VALUES (?);";
+	private final String SQL_UPDATE = "UPDATE marca SET nombre = ? WHERE id = ?;";
+	private final String SQL_DELETE = "DELETE FROM marca WHERE id = ?;";
+	
 	
 	
 	@Override
@@ -52,32 +59,105 @@ public class MarcaDAOImpl implements MarcaDAO {
 		}
 		return marcas;
 	}
-
-	// TODO implementar estos metodos cuando necesitemos
 	
 	@Override
 	public Marca getById(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Marca marca = new Marca();
+		
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID);) {
+			
+			pst.setInt(1, id);
+			LOG.debug(pst);
+			try (ResultSet rs = pst.executeQuery();){
+				if (rs.next()) {
+					marca = mapper(rs);
+				}else {
+					throw new Exception ("No se puede encontrar el registro con id=" + id);
+				}
+			}
+			
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return marca;
 	}
 
 	@Override
 	public Marca delete(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		// del listado de marcas, conseguir el id del que deseamos eliminar
+		Marca marca = getById(id);
+	
+try (	Connection conexion = ConnectionManager.getConnection();
+		PreparedStatement pst = conexion.prepareStatement(SQL_DELETE);) {
+
+		pst.setInt(1, id);
+		LOG.debug(pst);
+		int affectedRows = pst.executeUpdate();
+
+		if (affectedRows != 1) {
+			throw new Exception("No se pude eliminar el registro id=" + id);
+			}
+		}
+
+		return marca;
 	}
 
 	@Override
 	public Marca insert(Marca pojo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);) {
+
+			
+				pst.setString(1, pojo.getNombre());
+				LOG.debug(pst);
+				
+				int affectedRows = pst.executeUpdate();
+				if (affectedRows == 1) {
+					// conseguir el ID que nos ha arrojado
+
+				try (ResultSet rskeys = pst.getGeneratedKeys()) {
+					if (rskeys.next()) {
+						int id = rskeys.getInt(1);
+						pojo.setId(id);
+					}
+				}
+
+			} else {
+				throw new Exception("No se ha podido guardar el registro" + pojo);
+			}
+
+		} catch (Exception e) {
+			throw new Exception("No se ha podido guardar el perfume " + pojo.getNombre());
+		}
+		return pojo;
 	}
 
 	@Override
 	public Marca update(Marca pojo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if (pojo == null) {
+			throw new Exception("No se puede modificar si es null");
+		}
+
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE)) {
+
+			pst.setString(1, pojo.getNombre());
+			pst.setInt(2, pojo.getId());
+			LOG.debug(pst);
+			int affectedRows = pst.executeUpdate();
+			if (affectedRows != 1) {
+				throw new Exception("No se ha podido eliminar el registro con id =" + pojo.getId());
+			}
+
+		} catch (SQLException e) { // excepcion mas especifica que "exception e"
+			throw new Exception("El usuario " + pojo.getNombre() + " ya existe");
+		}
+
+		return pojo;
 	}
+	
 	
 	private Marca mapper(ResultSet rs) throws SQLException {
 		Marca marca = new Marca();
