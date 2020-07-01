@@ -30,7 +30,7 @@ public class TablaUsuariosController extends HttpServlet {
 		
 		request.setAttribute("Usuarios", usuarios);
 		
-		request.getRequestDispatcher("usuarios.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/usuarios/index.jsp").forward(request, response);
 		
 	}
 

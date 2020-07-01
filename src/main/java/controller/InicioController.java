@@ -67,7 +67,7 @@ public class InicioController extends HttpServlet {
 			request.setAttribute("encabezado2", "<b>" + nombreParameter + "</b>");
 			request.setAttribute("Marcas", marcaDAO.getAll());
 			//request.setAttribute("Perfumes", perfumeDAO.getAll());
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/perfumes/index.jsp").forward(request, response);
 		}
 		
 		

@@ -3,7 +3,7 @@
     
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
      
-<jsp:include page="includes/cabecera.jsp">
+<jsp:include page="../../includes/cabecera.jsp">
 	<jsp:param name="pagina" value="listado" />
  	 <jsp:param name="title" value="Listado" /> 
 </jsp:include>
@@ -11,6 +11,8 @@
 
 
 	<h1 class="text-center display-4 font-weight-normal">Listado de Perfumes</h1>
+	
+	<h3><a class="btn btn-primary" href="formulario?id=0">Crear Nuevo Perfume</a></h3>
 	
 	<table id="table" class="table-primary table-bordered ">
 		<thead class="blockquote text-center">
@@ -39,4 +41,4 @@
 	</table>
 
 
-<jsp:include page="includes/pie-pagina.jsp"></jsp:include>
+<jsp:include page="../../includes/pie-pagina.jsp"></jsp:include>

@@ -54,7 +54,7 @@ public class FormularioController extends HttpServlet {
 			}
 			
 		request.setAttribute("marcas", daoMarca.getAll());
-		request.getRequestDispatcher("formulario.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/perfumes/formulario.jsp").forward(request, response);
 		
 	}
 
@@ -119,7 +119,8 @@ public class FormularioController extends HttpServlet {
 					request.setAttribute("message", message);
 					
 					//ir a la nueva vista
-					request.getRequestDispatcher("formulario.jsp").forward(request, response);
+					request.setAttribute("marcas", daoMarca.getAll() );
+					request.getRequestDispatcher("/views/perfumes/formulario.jsp").forward(request, response);
 				}
 				
 				
@@ -133,7 +134,7 @@ public class FormularioController extends HttpServlet {
 				request.setAttribute("marcas", daoMarca.getAll() );
 				
 				//ir a la nueva vista
-				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/perfumes/formulario.jsp").forward(request, response);
 			}
 	
 	}

@@ -23,8 +23,8 @@ public class MarcasController extends HttpServlet {
     
     private static final MarcaDAOImpl marcaDAO = MarcaDAOImpl.getInstance();
     
-    private static final String VIEW_TABLA = "marcas.jsp";
-    private static final String VIEW_FORMULARIO = "marcas_formulario.jsp";
+    private static final String VIEW_TABLA = "/views/marcas/index.jsp";
+    private static final String VIEW_FORMULARIO = "/views/marcas/formulario.jsp";
     
 
 	/**
@@ -107,10 +107,6 @@ public class MarcasController extends HttpServlet {
 			request.setAttribute("Marca", marca);
 			request.getRequestDispatcher(VIEW_FORMULARIO).forward(request, response);
 		}
-		
-		
-		
-		
 		
 	}
 

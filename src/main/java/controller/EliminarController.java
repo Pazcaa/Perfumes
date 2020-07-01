@@ -23,7 +23,7 @@ public class EliminarController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PerfumeDAOImpl dao = PerfumeDAOImpl.getInstance();
 		
-		Perfume perfume = new Perfume();
+		//Perfume perfume = new Perfume();
 		
 		String idParameter = request.getParameter("id");
 		int id = Integer.parseInt(idParameter);
@@ -39,7 +39,7 @@ public class EliminarController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			request.getRequestDispatcher("eliminar.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/perfumes/eliminar.jsp").forward(request, response);
 	
 	}
 

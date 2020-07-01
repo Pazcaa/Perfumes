@@ -38,7 +38,7 @@ public class ListaController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 			request.setAttribute("Perfumes", perfumeDAO.getAll());
-			request.getRequestDispatcher("lista.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/perfumes/lista.jsp").forward(request, response);
 		
 	}
 }

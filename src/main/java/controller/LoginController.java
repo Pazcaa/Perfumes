@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
 		
 		request.setAttribute("Usuario_login", usuario);
 		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/login.jsp").forward(request, response);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class LoginController extends HttpServlet {
 				
 			}else {
 				request.setAttribute("message",new Message("danger", "Sus datos son incorrectos, vuelva a intentarlo"));
-				request.getRequestDispatcher("login.jsp").forward(request, response);	
+				request.getRequestDispatcher("/views/login.jsp").forward(request, response);	
 			}
 		
 	}

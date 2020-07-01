@@ -36,7 +36,7 @@ public class CrearUsuarioController extends HttpServlet {
 		
 		request.setAttribute("Usuario", usuario);
 		
-		request.getRequestDispatcher("new_usuario.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/usuarios/new_usuario.jsp").forward(request, response);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class CrearUsuarioController extends HttpServlet {
 				request.setAttribute("message", message);
 				
 				//ir a la nueva vista
-				request.getRequestDispatcher("new_usuario.jsp").forward(request, response);
+				request.getRequestDispatcher("/views/usuarios/new_usuario.jsp").forward(request, response);
 			}
 			
 		} catch (Exception e) {
@@ -97,7 +97,7 @@ public class CrearUsuarioController extends HttpServlet {
 			request.setAttribute("Usuario", usuario);
 			request.setAttribute("message", message);
 			
-			request.getRequestDispatcher("new_usuario.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/usuarios/new_usuario.jsp").forward(request, response);
 		}
 	
 	}

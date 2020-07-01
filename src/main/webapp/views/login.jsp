@@ -3,7 +3,7 @@
     
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
      
-<jsp:include page="includes/cabecera.jsp">
+<jsp:include page="../includes/cabecera.jsp">
 	<jsp:param name="pagina" value="login" />
  	<jsp:param name="title" value="Login" /> 
 </jsp:include>
@@ -34,4 +34,4 @@
 
 
 
-<jsp:include page="includes/pie-pagina.jsp"></jsp:include>
+<jsp:include page="../includes/pie-pagina.jsp"></jsp:include>
