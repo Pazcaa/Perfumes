@@ -64,10 +64,10 @@ public class LoginController extends HttpServlet {
 					
 					if (usuario.getRol().getId() == Rol.ADMIN) {
 						
-						request.getRequestDispatcher("/views/backoffice/index.jsp").forward(request, response);
+						request.getRequestDispatcher("/views/backoffice/inicio").forward(request, response);
 						
 					}else {
-						request.getRequestDispatcher("/views/frontoffice/index.jsp").forward(request, response);
+						request.getRequestDispatcher("/views/frontoffice/inicio").forward(request, response);
 					}
 				
 				
