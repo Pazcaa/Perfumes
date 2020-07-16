@@ -13,7 +13,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import modelo.dao.RolDAO;
+import modelo.dao.impl.RolDAOImpl;
 import modelo.dao.impl.UsuarioDAOImpl;
+import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 
 /**
@@ -23,6 +26,7 @@ import modelo.pojo.Usuario;
 public class CrearUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
+	private static RolDAOImpl daoRol = RolDAOImpl.getInstance();
 	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private static Validator validator = factory.getValidator();
 
@@ -34,7 +38,10 @@ public class CrearUsuarioController extends HttpServlet {
 	
 		Usuario usuario = new Usuario();
 		
+		
 		request.setAttribute("Usuario", usuario);
+		
+		request.setAttribute("Rol", daoRol.getAll());
 		
 		request.getRequestDispatcher("/views/usuarios/new_usuario.jsp").forward(request, response);
 	}
@@ -47,17 +54,23 @@ public class CrearUsuarioController extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String password = request.getParameter("password");
 		String imagen = request.getParameter("imagen");
+		String rolId = request.getParameter("idRol");
 		
-		int id = Integer.parseInt(idParameter);
+		int id 		= Integer.parseInt(idParameter);
+		int idRol 	= Integer.parseInt(rolId);
 		
 		//creo nuevos atributos
 		Usuario usuario = new Usuario();
+		Rol rol = new Rol();
 		Message message = new Message();
 		
 		usuario.setId(id);
 		usuario.setNombre(nombre);
 		usuario.setPassword(password);
 		usuario.setImagen(imagen);
+		
+		rol.setId(idRol);
+		usuario.setRol(rol);
 		
 		
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
@@ -95,6 +108,7 @@ public class CrearUsuarioController extends HttpServlet {
 			message = new Message("danger", "Lo sentimos, pero ha ocurrido una excepcion, " + e.getMessage());
 			e.printStackTrace();
 			request.setAttribute("Usuario", usuario);
+			request.setAttribute("Rol", daoRol.getAll());
 			request.setAttribute("message", message);
 			
 			request.getRequestDispatcher("/views/usuarios/new_usuario.jsp").forward(request, response);

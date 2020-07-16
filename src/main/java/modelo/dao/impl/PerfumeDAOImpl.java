@@ -54,7 +54,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													"	 m.id     'marca_id', " + 
 													"	 m.nombre 'marca_nombre'	" + 
 													" FROM perfume p , marca m " + 
-													" WHERE p.id_marca  = m.id " + 
+													" WHERE p.id_marca  = m.id AND p.fecha_validado IS NOT NULL " + 
 													" ORDER BY p.id DESC LIMIT ? ; ";
 		
 		private final String SQL_GET_BY_MARCA = 	" SELECT " + 
@@ -65,7 +65,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													"	 m.id     'marca_id', " + 
 													"	 m.nombre 'marca_nombre'	" + 
 													" FROM perfume p , marca m " + 
-													" WHERE p.id_marca  = m.id " +
+													" WHERE p.id_marca  = m.id AND p.fecha_validado IS NOT NULL " +
 													" AND m.id = ? " +   // filtramos por el id de la categoria
 													" ORDER BY p.id DESC LIMIT ? ; ";
 		
@@ -259,7 +259,12 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return null;
 	}
 
-
+	@Override
+	public void validar(int id) {
+		// TODO Auto-generated method stub
+		//UPDATE perfume SET fecha_validado = NOW() WHERE id = ?;
+		
+	}
 
 	
 
@@ -281,6 +286,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
+	
 
 	
 

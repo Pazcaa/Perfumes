@@ -9,6 +9,13 @@ import modelo.pojo.Perfume;
 
 public interface PerfumeDAO extends CrudAble<Perfume>{
 
+	/**
+	 * metodo para validar producto nuevo incorporado
+	 * @param id
+	 */
+	
+	void validar (int id);
+	
 	ArrayList<Perfume> getAllByNombre (String nombre);
 	
 	

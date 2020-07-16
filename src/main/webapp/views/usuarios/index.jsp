@@ -16,6 +16,7 @@
 				<th>id</th>
 				<th>Nombre</th>
 				<th>Imagen</th>
+				<th>Rol</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,6 +25,7 @@
 					<td class="blockquote text-center">${usuario.id}</td>
 					<td>${usuario.nombre}</td>
 					<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${usuario.imagen}"></td>
+					<td>${usuario.rol.nombre}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

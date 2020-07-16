@@ -29,6 +29,19 @@
 					<label for="imagen">Imagen del Usuario</label>
 					<input type="text" class="form-control" name="imagen" id="imagen" value="${Usuario.imagen}" placeholder="ingresar el URL de la imagen" >
 				</div>	
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+					    <label class="input-group-text" for="idRol">Rol</label>
+					</div>
+					  <select class="custom-select" id="idRol" name="idRol">
+					    <option value = "0" >Elige...</option>
+					    	<c:forEach items="${Rol}" var="rol" >
+								<option value="${rol.id }" ${(rol.id eq Usuario.rol.id)? "selected" : "" }>${rol.nombre}</option>
+							</c:forEach>
+					  </select>
+				</div>
+								
+				
 				<div class="form-group">
 					<input type="submit" class="btn-primary" name="guardar" value="Guardar">
 				</div>

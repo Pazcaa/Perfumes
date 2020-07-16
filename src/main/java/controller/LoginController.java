@@ -15,6 +15,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import modelo.dao.impl.UsuarioDAOImpl;
+import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 
 /**
@@ -31,9 +32,9 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Usuario usuario = new Usuario();
+		//Usuario usuario = new Usuario();
 		
-		request.setAttribute("Usuario_login", usuario);
+		//request.setAttribute("Usuario_login", usuario);
 		
 		request.getRequestDispatcher("/views/login.jsp").forward(request, response);
 	}
@@ -59,7 +60,15 @@ public class LoginController extends HttpServlet {
 					session.setAttribute("Usuario_login", usuario);
 					
 					request.setAttribute("message", new Message("success", usuario.getNombre() + " se ha conectado con exito"));
-					request.getRequestDispatcher("inicio").forward(request, response);
+					//request.getRequestDispatcher("inicio").forward(request, response);
+					
+					if (usuario.getRol().getId() == Rol.ADMIN) {
+						
+						request.getRequestDispatcher("/views/backoffice/index.jsp").forward(request, response);
+						
+					}else {
+						request.getRequestDispatcher("/views/frontoffice/index.jsp").forward(request, response);
+					}
 				
 				
 			}else {

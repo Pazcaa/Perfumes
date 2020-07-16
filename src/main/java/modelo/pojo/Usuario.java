@@ -18,13 +18,16 @@ public class Usuario {
 	@NotBlank(message = "Se debe ingresar la URL de la  imagen")
 	private String imagen;
 	
+	private Rol rol;
+	
 	
 	public Usuario() {
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.password = "";
-		this.imagen = "https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg";	
+		this.imagen = "https://p1.pxfuel.com/preview/790/280/868/596ed5870f859.jpg";
+		this.rol = new Rol();
 	}
 
 
@@ -32,7 +35,7 @@ public class Usuario {
 		return id;
 	}
 
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -66,11 +69,23 @@ public class Usuario {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+
+	public Rol getRol() {
+		return rol;
+	}
+
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + ", imagen=" + imagen + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + ", imagen=" + imagen + ", rol="
+				+ rol + "]";
 	}
 
 }
