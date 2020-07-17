@@ -53,7 +53,7 @@
 		</c:if>
 		
 		<c:if test="${not empty Usuario_login}">
-		<a class="py-2 d-none d-md-inline-block text-primary active">${Usuario_login.nombre}</a>
+		<a class="py-2 d-none d-md-inline-block text-primary active" href="views/frontoffice/inicio">Perfil ${Usuario_login.nombre}</a>
 		</c:if>
 		
 	  </nav>
