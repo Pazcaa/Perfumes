@@ -18,6 +18,13 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	
 	ArrayList<Perfume> getAllByNombre (String nombre);
 	
+	/**
+	 * Obtiene todos los productos de un usuario, estos pueden estar validados o no
+	 * @param idUsuario int identificador del usuario
+	 * @param isValidado boolean true para mostrar los productos con fecha_validacion, false para mostrar los pendientes de validar
+	 * @return
+	 */
+	ArrayList<Perfume> getAllByUser (int id_usuario, boolean isValidado );
 	
 	/**
 	 *  Obtiene los ultimos registros ordenador por id descentente

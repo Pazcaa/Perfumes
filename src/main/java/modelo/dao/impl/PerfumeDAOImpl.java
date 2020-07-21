@@ -80,6 +80,18 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  AND p.id = ?;";
 		
+		private final String SQL_GET_BY_USUARIO_PERFUME_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre'" + 
+																	" FROM perfume p, marca m " + 
+																	" WHERE p.id_marca = m.id  AND p.fecha_validado IS NOT NULL AND p.id_usuario =?" + 
+																	" ORDER BY p.id " + 
+																	" LIMIT 500;";
+		
+		private final String SQL_GET_BY_USUARIO_PERFUME_NO_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre'" + 
+																	" FROM perfume p, marca m " + 
+																	" WHERE p.id_marca = m.id  AND p.fecha_validado IS NULL AND p.id_usuario =?" + 
+																	" ORDER BY p.id " + 
+																	" LIMIT 500;";
+		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
 		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca) VALUES ( ? ,?, ?, ?); ";
 		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
@@ -169,6 +181,35 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			LOG.error(e);
 		}
 		return perfume;
+	}
+	
+	@Override
+	public ArrayList<Perfume> getAllByUser(int id_usuario, boolean isValidado) {
+		ArrayList<Perfume> perfumes = new ArrayList<Perfume>();
+		
+		String sql = (isValidado)? SQL_GET_BY_USUARIO_PERFUME_VALIDADO : SQL_GET_BY_USUARIO_PERFUME_NO_VALIDADO;
+		
+		try (Connection conexion = ConnectionManager.getConnection();
+			PreparedStatement pst = conexion.prepareStatement(sql);){
+			
+			// TODO mirar como hacerlo con una SQL,   "IS NOT NULL" o "IS NULL"
+			// pst.setBoolean(1, isValidado); // me sustitulle con un 1 o 0
+						
+			pst.setInt(1, id_usuario);
+						
+			LOG.debug(pst);
+			
+			try ( ResultSet rs = pst.executeQuery() ){
+				while (rs.next()) {
+					perfumes.add(mapper(rs));
+				}	
+			}
+			
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		
+		return perfumes;
 	}
 
 	@Override
@@ -286,6 +327,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
+	
 
 	
 

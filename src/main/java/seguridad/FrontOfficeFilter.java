@@ -61,12 +61,12 @@ public class FrontOfficeFilter implements Filter {
 		if ( usarioLogin == null ) {
 			LOG.warn("No ha pasado por el LOGIN, usuario NULL, SIN AUTENTIFICAR ");
 			//res.sendRedirect( "login.jsp"); => ruta relativa, se no mete en un bucle
-			res.sendRedirect( urlInicioApp + "login"); //ruta absoluta
+			res.sendRedirect( urlInicioApp + "/login"); //ruta absoluta
 			
 		}else if ( usarioLogin.getRol().getId() != Rol.USUARIO) {
 			
 			LOG.warn("Cuidado usuario SIN AUTORIZACION");
-			res.sendRedirect( urlInicioApp + "login");
+			res.sendRedirect( urlInicioApp + "/login");
 			
 			
 		}else {

@@ -10261,4 +10261,12 @@ body {
   background-color: #e9ecef;
 }
 
-
+.img-table {
+	height: 180px;
+	width: auto;
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto;
+	
+	
+}

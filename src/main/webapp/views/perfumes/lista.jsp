@@ -10,7 +10,7 @@
  	 <jsp:param name="title" value="Listado" /> 
 </jsp:include>
 
-
+<div class="container">
 
 	<h1 class="text-center display-4 font-weight-normal">Listado de Perfumes</h1>
 	
@@ -42,5 +42,5 @@
 		</tbody>
 	</table>
 
-
+</div>
 <jsp:include page="../../includes/pie-pagina.jsp"></jsp:include>
