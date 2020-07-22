@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import modelo.crud.CrudAble;
 import modelo.pojo.Perfume;
+import modelo.pojo.ResumenUsuario;
 
 public interface PerfumeDAO extends CrudAble<Perfume>{
 
@@ -41,5 +42,14 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	 * @return ArrayList<Perfume>
 	 */
 	ArrayList<Perfume> getAllByMarca( int idMarca, int numReg );
+	
+	
+	
+	/**
+	 * Obtiene datos estadisticos del Usuario y sus productos
+	 * @param idUsuario
+	 * @return
+	 */
+	ResumenUsuario getResumenByUsuario (int idUsuario);
 	
 }

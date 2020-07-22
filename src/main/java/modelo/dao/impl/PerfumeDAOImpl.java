@@ -14,6 +14,7 @@ import modelo.conexion.ConnectionManager;
 import modelo.dao.PerfumeDAO;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
+import modelo.pojo.ResumenUsuario;
 
 public class PerfumeDAOImpl implements PerfumeDAO{
 	
@@ -79,6 +80,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" m.nombre 'marca_nombre' " + 
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  AND p.id = ?;";
+		
+		private final String SQL_VIEW_RESUMEN_USUARIO = "SELECT id_usuario, total, aprobado, pendiente FROM `v.perfumes_resumen` WHERE id_usuario = ? ; ";
 		
 		private final String SQL_GET_BY_USUARIO_PERFUME_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre'" + 
 																	" FROM perfume p, marca m " + 
@@ -181,6 +184,33 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			LOG.error(e);
 		}
 		return perfume;
+	}
+	
+
+	@Override
+	public ResumenUsuario getResumenByUsuario(int idUsuario) {
+		ResumenUsuario resumen = new ResumenUsuario();
+		
+		try (Connection conexion = ConnectionManager.getConnection();
+			PreparedStatement pst = conexion.prepareStatement(SQL_VIEW_RESUMEN_USUARIO);){
+			
+			pst.setInt(1, idUsuario);
+			LOG.debug(pst);
+			
+			try (ResultSet rs = pst.executeQuery();) {
+				if (rs.next()) {
+					resumen.setIdUsuario(idUsuario);
+					resumen.setPerfumesAprobados(rs.getInt("aprobado"));
+					resumen.setPerfumesPendientes(rs.getInt("pendiente"));
+					resumen.setPerfumesTotal(rs.getInt("total"));
+				}
+			}
+			
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		
+		return resumen;
 	}
 	
 	@Override
@@ -327,6 +357,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
 
 	
 

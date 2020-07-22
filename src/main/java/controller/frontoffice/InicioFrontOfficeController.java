@@ -1,11 +1,22 @@
 package controller.frontoffice;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+
+
+import modelo.dao.impl.PerfumeDAOImpl;
+import modelo.pojo.Perfume;
+import modelo.pojo.ResumenUsuario;
+import modelo.pojo.Usuario;
 
 /**
  * Servlet implementation class InicioFrontOfficeController
@@ -13,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/views/frontoffice/inicio")
 public class InicioFrontOfficeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(InicioFrontOfficeController.class);
+	private static final PerfumeDAOImpl daoPerfume = PerfumeDAOImpl.getInstance(); 
        
    
 
@@ -21,9 +35,18 @@ public class InicioFrontOfficeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("aprobados", 3);
-		request.setAttribute("pendientes", 2);
-		request.setAttribute("rechazados", 2);
+	Usuario usarioSession = (Usuario) request.getSession().getAttribute("Usuario_login");
+	int idUsuario = usarioSession.getId();
+	
+	// ArrayList<Perfume> aprobados =daoPerfume.getAllByUser(idUsuario, true);
+	// ArrayList<Perfume> pendientes =daoPerfume.getAllByUser(idUsuario, false);
+	//request.setAttribute("aprobados", aprobados.size());
+	//request.setAttribute("pendientes", pendientes.size());
+	
+	ResumenUsuario resumen = daoPerfume.getResumenByUsuario(idUsuario);
+	
+	request.setAttribute("resumen", resumen);
+	
 		
 		
 		//para hacer fordward coje el webservlet ("/views/frontoffice/inicio") y reemplaza la ultima parte por la request
