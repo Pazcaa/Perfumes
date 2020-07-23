@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import modelo.conexion.ConnectionManager;
 import modelo.dao.PerfumeDAO;
+import modelo.dao.SeguridadException;
 import modelo.pojo.Marca;
 import modelo.pojo.Perfume;
 import modelo.pojo.ResumenUsuario;
@@ -85,6 +86,12 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  AND p.id = ?;";
 		
+		private final String SQL_GET_BY_ID_AND_USER	= " SELECT p.id 'perfume_id' ," + 
+														" p.nombre 'perfume_nombre', p.ml , p.imagen , p.precio," + 
+														" m.id 'marca_id', m.nombre 'marca_nombre' " + 
+														" FROM perfume p , marca m "+ 
+														" WHERE p.id_marca = m.id AND p.id = ? AND p.id_usuario = ?;"; 
+		
 		private final String SQL_VIEW_RESUMEN_USUARIO = "SELECT id_usuario, total, aprobado, pendiente FROM `v.perfumes_resumen` WHERE id_usuario = ? ; ";
 		
 		private final String SQL_GET_BY_USUARIO_PERFUME_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre', precio" + 
@@ -101,8 +108,12 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
 		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca, id_usuario, precio ) VALUES ( ? ,?, ?, ?, ?, ?); ";
-		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
+		
 		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ?, precio = ?  WHERE id = ? ; ";		
+		
+		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
+		
+		private final String SQL_DELETE_BY_USER = "DELETE FROM perfume WHERE id = ? AND id_usuario = ?; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
 	
 	@Override
 	public ArrayList<Perfume> getAll() {
@@ -190,6 +201,30 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 	}
 	
+	
+	@Override
+	public Perfume getById(int idPerfume, int idUsuario) throws Exception, SeguridadException {
+		Perfume perfume = new Perfume();
+		
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID_AND_USER);) {
+			
+			pst.setInt(1, idPerfume);
+			pst.setInt(2, idUsuario);
+			LOG.debug(pst);
+			
+			ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					perfume = mapper(rs);
+				}else {
+					throw new SeguridadException();
+				}
+			
+		}
+		
+		return perfume;
+	}
+	
 
 	@Override
 	public ResumenUsuario getResumenByUsuario(int idUsuario) {
@@ -263,6 +298,25 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 					}
 				}
 
+				return perfume;
+	}
+	
+	@Override
+	public Perfume delete(int idPerfume, int idUsuario) throws Exception, SeguridadException {
+		// del listado de perfumes, conseguir el id del que deseamos eliminar PARA EL USUARIO
+		Perfume perfume = getById(idPerfume, idUsuario);
+	
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE_BY_USER);) {
+		
+				pst.setInt(1, idPerfume);
+				pst.setInt(2, idUsuario);
+				
+				LOG.debug(pst);
+				
+				pst.executeUpdate();
+		
+		}
 				return perfume;
 	}
 
@@ -366,6 +420,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
+
 
 
 	

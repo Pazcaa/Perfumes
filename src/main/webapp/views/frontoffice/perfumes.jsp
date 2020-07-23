@@ -24,6 +24,7 @@
 				<th>Nombre</th>
 				<th>Marca</th>
 				<th>Formato (ml)</th>
+				<th>Precio (€)</th>
 				<th>Imagen</th>
 				<th>Operación</th>
 			</tr>
@@ -35,6 +36,7 @@
 					<td>${perfume.nombre}</td>
 					<td>${perfume.marca.nombre}</td>
 					<td>${perfume.ml}</td>
+					<td>${perfume.precio}</td>
 					<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${perfume.imagen}"></td>
 					<td class="blockquote text-center"><a href="views/frontoffice/crear_perfume?id=${perfume.id}"> <i class="fas fa-edit fa-2x"></i></a>
 						<a href="views/frontoffice/eliminar_perfume?id=${perfume.id}"><i class="fas fa-trash fa-2x"></i></a></td>

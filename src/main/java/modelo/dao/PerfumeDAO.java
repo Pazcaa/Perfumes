@@ -17,6 +17,26 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	
 	void validar (int id);
 	
+	/**
+	 * Elimina un perfume asociado a un usuario, un usuario solo puede eliminar sus perfumes y no los de otros
+	 * @param idPerfume
+	 * @param idUsuario
+	 * @return Perfume eliminado
+	 * @throws Exception
+	 * @throws SeguridadException Si no puede eliminar el perfume porque no pertenece al usuario
+	 */
+	Perfume delete(int idPerfume, int idUsuario) throws Exception, SeguridadException;
+	
+	/**
+	 * Obtengo un perfume que pertenece a un usuario en concreto
+	 * @param idPerfume
+	 * @param idUsuario
+	 * @return
+	 * @throws Exception
+	 * @throws SeguridadException
+	 */
+	Perfume getById(int idPerfume, int idUsuario) throws Exception, SeguridadException;
+	
 	ArrayList<Perfume> getAllByNombre (String nombre);
 	
 	/**
