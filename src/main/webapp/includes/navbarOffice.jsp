@@ -54,4 +54,8 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                <main>
+<main>
+                
+     <jsp:include page="message.jsp"></jsp:include>
+     
+     

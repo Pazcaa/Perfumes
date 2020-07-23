@@ -42,7 +42,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" ml," + 
 													" imagen, " + 
 													" m.id 		'marca_id', "+
-													" m.nombre 	'marca_nombre' " + 
+													" m.nombre 	'marca_nombre', " + 
+													" precio " + 
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  " + 
 													" ORDER BY p.id DESC LIMIT 500; ";
@@ -53,7 +54,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													"	 ml, " + 
 													"	 imagen, " + 
 													"	 m.id     'marca_id', " + 
-													"	 m.nombre 'marca_nombre'	" + 
+													"	 m.nombre 'marca_nombre',	" + 
+													" 	 precio " + 
 													" FROM perfume p , marca m " + 
 													" WHERE p.id_marca  = m.id AND p.fecha_validado IS NOT NULL " + 
 													" ORDER BY p.id DESC LIMIT ? ; ";
@@ -64,7 +66,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													"	 ml, " + 
 													"	 imagen, " + 
 													"	 m.id     'marca_id', " + 
-													"	 m.nombre 'marca_nombre'	" + 
+													"	 m.nombre 'marca_nombre',	" + 
+													" 	 precio " + 
 													" FROM perfume p , marca m " + 
 													" WHERE p.id_marca  = m.id AND p.fecha_validado IS NOT NULL " +
 													" AND m.id = ? " +   // filtramos por el id de la categoria
@@ -77,28 +80,29 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 													" ml, " + 
 													" imagen, " + 
 													" m.id 'marca_id', " + 
-													" m.nombre 'marca_nombre' " + 
+													" m.nombre 'marca_nombre', " + 
+													" 	 precio " + 
 													" FROM perfume p, marca m " + 
 													" WHERE p.id_marca = m.id  AND p.id = ?;";
 		
 		private final String SQL_VIEW_RESUMEN_USUARIO = "SELECT id_usuario, total, aprobado, pendiente FROM `v.perfumes_resumen` WHERE id_usuario = ? ; ";
 		
-		private final String SQL_GET_BY_USUARIO_PERFUME_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre'" + 
+		private final String SQL_GET_BY_USUARIO_PERFUME_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre', precio" + 
 																	" FROM perfume p, marca m " + 
 																	" WHERE p.id_marca = m.id  AND p.fecha_validado IS NOT NULL AND p.id_usuario =?" + 
 																	" ORDER BY p.id " + 
 																	" LIMIT 500;";
 		
-		private final String SQL_GET_BY_USUARIO_PERFUME_NO_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre'" + 
+		private final String SQL_GET_BY_USUARIO_PERFUME_NO_VALIDADO = " SELECT p.id 'perfume_id', p.nombre 'perfume_nombre',  ml, imagen, m.id 'marca_id',  m.nombre 'marca_nombre', precio" + 
 																	" FROM perfume p, marca m " + 
 																	" WHERE p.id_marca = m.id  AND p.fecha_validado IS NULL AND p.id_usuario =?" + 
 																	" ORDER BY p.id " + 
 																	" LIMIT 500;";
 		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
-		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca) VALUES ( ? ,?, ?, ?); ";
+		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca, id_usuario, precio ) VALUES ( ? ,?, ?, ?, ?, ?); ";
 		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
-		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ? WHERE id = ? ; ";		
+		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ?, precio = ?  WHERE id = ? ; ";		
 	
 	@Override
 	public ArrayList<Perfume> getAll() {
@@ -273,6 +277,9 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 				pst.setInt(2, pojo.getMl());
 				pst.setString(3, pojo.getImagen());
 				pst.setInt(4, pojo.getMarca().getId());
+				pst.setInt(5, pojo.getUsuario().getId());
+				pst.setFloat(6, pojo.getPrecio());
+				
 				
 				LOG.debug(pst);
 				int affectedRows = pst.executeUpdate();
@@ -309,7 +316,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			pst.setInt(2, pojo.getMl());
 			pst.setString(3, pojo.getImagen());
 			pst.setInt(4, pojo.getMarca().getId());
-			pst.setInt(5, pojo.getId());
+			pst.setFloat(5, pojo.getPrecio());
+			pst.setInt(6, pojo.getId());
 			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows != 1) {
@@ -317,7 +325,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 			}
 
 		} catch (SQLException e) { // excepcion mas especifica que "exception e"
-			throw new Exception("El usuario " + pojo.getNombre() + " ya existe");
+			throw new Exception("El perfume " + pojo.getNombre() + " ya existe");
 		}
 
 		return pojo;
@@ -349,6 +357,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		perfume.setNombre(rs.getString("perfume_nombre"));
 		perfume.setMl(rs.getInt("ml"));
 		perfume.setImagen(rs.getString("imagen"));
+		perfume.setPrecio(rs.getFloat("precio"));
 		
 		marca.setId(rs.getInt("marca_id"));
 		marca.setNombre(rs.getString("marca_nombre"));
