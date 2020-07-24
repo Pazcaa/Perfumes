@@ -109,7 +109,9 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
 		private final String SQL_INSERT = "INSERT INTO perfume (nombre, ml, imagen, id_marca, id_usuario, precio ) VALUES ( ? ,?, ?, ?, ?, ?); ";
 		
-		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ?, precio = ?  WHERE id = ? ; ";		
+		private final String SQL_UPDATE = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ?, precio = ?  WHERE id = ? ; ";	
+		
+		private final String SQL_UPDATE_BY_USER = "UPDATE perfume SET nombre = ?, ml = ?, imagen = ?, id_marca = ?, precio = ?, fecha_validado = NULL WHERE id = ? ; ";	
 		
 		private final String SQL_DELETE = "DELETE FROM perfume WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
 		
@@ -385,6 +387,36 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return pojo;
 	}
 	
+	@Override
+	public Perfume updateByUser(Perfume pojo) throws Exception, SeguridadException {
+		
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE_BY_USER)) {
+
+			int idPerfume = pojo.getId();
+			int idUsuario = pojo.getUsuario().getId();
+			
+			getById(idPerfume, idUsuario);// confirmo que el id perfume corresponde al usuario (filtro de seguridad)
+			
+			//seteo los datos, para actualizarlos y llevar la fecha_validado a null
+			pst.setString(1, pojo.getNombre());
+			pst.setInt(2, pojo.getMl());
+			pst.setString(3, pojo.getImagen());
+			pst.setInt(4, pojo.getMarca().getId());
+			pst.setFloat(5, pojo.getPrecio());
+			pst.setInt(6, pojo.getId());
+			
+			LOG.debug(pst);
+			int affectedRows = pst.executeUpdate();
+			if (affectedRows != 1) {
+				throw new Exception("No se ha podido eliminar el registro con id =" + pojo.getId());
+			}
+
+		}
+
+		return pojo;
+	}
+	
 
 	@Override
 	public ArrayList<Perfume> getAllByNombre(String nombre) {
@@ -420,6 +452,8 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 		return perfume;
 		
 	}
+
+
 
 
 

@@ -72,4 +72,5 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	 */
 	ResumenUsuario getResumenByUsuario (int idUsuario);
 	
+	Perfume updateByUser(Perfume perfume)throws Exception, SeguridadException;	
 }

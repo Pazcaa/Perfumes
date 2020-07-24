@@ -99,7 +99,7 @@ public class CrearPerfumeFrontOfficeController extends HttpServlet {
 		// recuperar usuario de session y setearlo en el producto
 		HttpSession session = request.getSession();
 		Usuario usuario = (Usuario)session.getAttribute("Usuario_login");
-		perfume.setUsuario(usuario);
+		
 		
 		
 		try {
@@ -123,6 +123,7 @@ public class CrearPerfumeFrontOfficeController extends HttpServlet {
 			perfume.setImagen(imagen);
 			marca.setId(idMarca);
 			perfume.setMarca(marca);
+			perfume.setUsuario(usuario);
 			
 			
 			
@@ -135,7 +136,7 @@ public class CrearPerfumeFrontOfficeController extends HttpServlet {
 					daoPerfume.insert(perfume);
 					message = new Message("success", "El perfume ha sido incorporado con exito al listado");
 				}else {
-					daoPerfume.update(perfume);
+					daoPerfume.updateByUser(perfume);
 					message = new Message("success", "El perfume ha sido editado con exito al listado");
 				}
 				//enviamos los atributos a la vista
