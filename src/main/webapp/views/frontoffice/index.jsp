@@ -15,14 +15,15 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">Bienvenido</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Panel</li>
+                            <li class="breadcrumb-item active">Tus perfumes</li>
                         </ol>
                         <div class="row">
+                        	<div class="col-xl-3 col-md-6"></div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">Aprobados: ${resumen.perfumesAprobados}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="views/frontoffice/perfumes">Detalles</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -31,78 +32,68 @@
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Pendientes: ${resumen.perfumesPendientes}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="views/frontoffice/perfumes?validar=0">Detalles</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Total: ${resumen.perfumesTotal}</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-xl-3 col-md-6"></div>
+                           
                         </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                DataTable Example
+                                Total: ${resumen.perfumesTotal}
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>id</th>
+												<th>Nombre</th>
+												<th>Marca</th>
+												<th>Formato (ml)</th>
+												<th>Precio (€)</th>
+												<th>Imagen</th>
+												<th>Estado</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>id</th>
+												<th>Nombre</th>
+												<th>Marca</th>
+												<th>Formato (ml)</th>
+												<th>Precio (€)</th>
+												<th>Imagen</th>
+												<th>Estado</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>                                          
+                                           	<c:forEach items="${perfumesValidos}" var="perfume">
+												<tr>
+													<td class="blockquote text-center">${perfume.id}</td>
+													<td>${perfume.nombre}</td>
+													<td>${perfume.marca.nombre}</td>
+													<td>${perfume.ml}</td>
+													<td>${perfume.precio}</td>
+													<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${perfume.imagen}"></td>
+													<td> ${tittleAprobados}</td>
+												</tr>
+											</c:forEach> 
+												<c:forEach items="${perfumesPendientes}" var="perfume">
+												<tr>
+													<td class="blockquote text-center">${perfume.id}</td>
+													<td>${perfume.nombre}</td>
+													<td>${perfume.marca.nombre}</td>
+													<td>${perfume.ml}</td>
+													<td>${perfume.precio}</td>
+													<td><img class="img-thumbnail img-table" alt="imagen perfume" src="${perfume.imagen}"></td>
+													<td> ${tittlePendientes}</td>
+												</tr>
+											</c:forEach>                                          
                                         </tbody>
                                     </table>
                                 </div>

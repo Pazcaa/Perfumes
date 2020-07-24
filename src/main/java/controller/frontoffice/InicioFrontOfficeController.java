@@ -44,8 +44,24 @@ public class InicioFrontOfficeController extends HttpServlet {
 	//request.setAttribute("pendientes", pendientes.size());
 	
 	ResumenUsuario resumen = daoPerfume.getResumenByUsuario(idUsuario);
+	ArrayList<Perfume> perfumesValidos = new ArrayList<Perfume>();
+	ArrayList<Perfume> perfumesPendientes = new ArrayList<Perfume>();
+	//ArrayList<Perfume> perfumes = new ArrayList<Perfume>();
+	
+	perfumesValidos = daoPerfume.getAllByUser(idUsuario, true);
+	String tittleAprobados = "Aprobado";
+	perfumesPendientes = daoPerfume.getAllByUser(idUsuario, false);
+	String tittlePendientes = "Pendiente";
+	
+	//perfumes.addAll(perfumesValidos);
+	//perfumes.addAll(perfumesPendientes);
 	
 	request.setAttribute("resumen", resumen);
+	//request.setAttribute("perfumes", perfumes);
+	request.setAttribute("perfumesValidos", perfumesValidos);
+	request.setAttribute("perfumesPendientes", perfumesPendientes);
+	request.setAttribute("tittleAprobados", tittleAprobados);
+	request.setAttribute("tittlePendientes", tittlePendientes);
 	
 		
 		
