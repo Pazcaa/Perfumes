@@ -49,10 +49,11 @@
 		<c:if test="${'Admin' eq Usuario_login.nombre }">
 	    <a class="py-2 d-none d-md-inline-block  ${ ( 'listado' eq param.pagina ) ? 'active' : '' }" href="lista">Perfumes</a>
 	    <a class="py-2 d-none d-md-inline-block ${ ( 'marcas' eq param.pagina ) ? 'active' : '' }" href="marcas">Marcas</a>
-		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>  
+		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>
+		<a class="py-2 d-none d-md-inline-block text-primary active" href="views/backoffice/inicio">Perfil ${Usuario_login.nombre}</a>  
 		</c:if>
 		
-		<c:if test="${not empty Usuario_login}">
+		<c:if test="${not empty Usuario_login }">
 		<a class="py-2 d-none d-md-inline-block text-primary active" href="views/frontoffice/inicio">Perfil ${Usuario_login.nombre}</a>
 		</c:if>
 		
