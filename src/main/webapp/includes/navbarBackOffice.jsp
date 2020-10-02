@@ -30,12 +30,12 @@
                                 Mi perfil
                             </a>
                            
-                            <a class="nav-link text-primary" href="#">
+                            <a class="nav-link text-primary" href="views/backoffice/perfumes">
                                 <div class="sb-nav-link-icon text-primary"><i class="far fa-gem fa-lg"></i></div>
                                 Perfumes
                                 <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
                             </a>
-                            <a class="nav-link text-primary" href="#">
+                            <a class="nav-link text-primary" href="views/backoffice/usuarios">
                                 <div class="sb-nav-link-icon text-primary"><i class="fas fa-gem fa-lg"></i></div>
                                 Usuarios
                                 <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
