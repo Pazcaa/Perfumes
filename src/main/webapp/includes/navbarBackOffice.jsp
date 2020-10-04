@@ -25,14 +25,19 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></i></div>
-                            <a class="nav-link text-primary" href="views/frontoffice/inicio">
+                            <a class="nav-link text-primary" href="views/backoffice/inicio">
                                 <div class="sb-nav-link-icon text-primary"><i class="fa fa-globe fa-lg"></i></div>
                                 Mi perfil
                             </a>
                            
-                            <a class="nav-link text-primary" href="views/backoffice/perfumes">
+                            <a class="nav-link text-primary" href="views/backoffice/perfumes?perfumes=0">
                                 <div class="sb-nav-link-icon text-primary"><i class="far fa-gem fa-lg"></i></div>
-                                Perfumes
+                                Perfumes por Validar
+                                <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
+                            </a>
+                             <a class="nav-link text-primary" href="views/backoffice/perfumes?perfumes=1">
+                                <div class="sb-nav-link-icon text-primary"><i class="far fa-gem fa-lg"></i></div>
+                                Perfumes Validados
                                 <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
                             </a>
                             <a class="nav-link text-primary" href="views/backoffice/usuarios">
@@ -50,11 +55,7 @@
                                 Lanzar Proceso Migración
                                 <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
                             </a>
-                             <a class="nav-link text-primary" href="#" >
-                                <div class="sb-nav-link-icon text-primary"><i class="far fa-gem fa-lg"></i></div>
-                                Parsear Web
-                                <div class="sb-sidenav-collapse-arrow text-primary"><i class="fas fa-angle-right"></i></div>
-                            </a>
+                            
                         </div>
                     </div>
                     <div class="sb-sidenav-footer text-primary">

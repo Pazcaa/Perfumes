@@ -30,8 +30,8 @@
 				<tr>
 					<td class="blockquote text-center">${marca.id}</td>
 					<td>${marca.nombre}</td>
-					<td class="blockquote text-center"><a href="marcas?id=${marca.id}"> <i class="fas fa-edit fa-2x"></i></a>
-						<a href="marcas?id=${marca.id}&eliminar=1" onclick="confirmar('${marca.nombre}')"><i class="fas fa-trash fa-2x"></i></a></td>
+					<td class="blockquote text-center"><a href="views/backoffice/marcas?id=${marca.id}"> <i class="fas fa-edit fa-2x"></i></a>
+						<a href="views/backoffice/marcas?id=${marca.id}&eliminar=1" onclick="confirmar('${marca.nombre}')"><i class="fas fa-trash fa-2x"></i></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

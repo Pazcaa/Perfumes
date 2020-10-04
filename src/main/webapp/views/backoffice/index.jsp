@@ -11,6 +11,7 @@
 </jsp:include>
 <jsp:include page="../../includes/navbarBackOffice.jsp"></jsp:include>
 
+<div class="container-fluid">
 <h1>Bienvenido al Back Office</h1>
 
 
@@ -18,7 +19,7 @@
             
              	<div class="col-xl-3 col-md-6">
                     <div class="card bg-primary text-white mb-4 position-relative">
-                        <div class="card-body">Productos <span class="big-number">${aprobados}</span></div>
+                        <div class="card-body">Total de Perfumes reigistrados: <span class="big-number">${resumen.perfumesTotal}</span></div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-white stretched-link" href="#">Ver Detalle</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -27,18 +28,32 @@
                 </div>  
                 
                 <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4 position-relative">
+                        <div class="card-body">Perfumes Pendientes de Validar: <span class="big-number">${resumen.perfumesPendientes}</span></div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">Ver Detalle</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>  
+                
+                  <div class="col-xl-3 col-md-6">
                     <div class="card bg-warning text-white mb-4 position-relative">
-                        <div class="card-body">Productos Pendientes Validar <span class="big-number">${pendientes}</span></div>
+                        <div class="card-body">Perfumes Validados: <span class="big-number">${resumen.perfumesAprobados}</span></div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-white stretched-link" href="#">Ver Detalle</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
-                </div>  
+                </div> 
+                
+ </div> 
+
+<div class="row">
                 
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4 position-relative">
-                        <div class="card-body">Usuarios <span class="big-number">${numero_usuarios}</span></div>
+                    <div class="card bg-info text-white mb-4 position-relative">
+                        <div class="card-body">Usuarios: <span class="big-number">${resumen.marcasTotal}</span></div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-white stretched-link" href="#">Ver Detalle</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -47,8 +62,8 @@
                 </div> 
                 
                 <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4 position-relative">
-                        <div class="card-body">Categorias <span class="big-number">20</span></div>
+                    <div class="card bg-success text-white mb-4 position-relative">
+                        <div class="card-body">Categorias: <span class="big-number">${resumen.usuariosTotal}</span></div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
                             <a class="small text-white stretched-link" href="#">Ver Detalle</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -57,7 +72,7 @@
                 </div>  
                 
                 
- </div>               
+ </div>                
 
 <h2>Usuario Logeados</h2>
  <div class="row">
@@ -75,6 +90,6 @@
 
 <a href="views/backoffice/migracion">Enlace para ver datos de migracion</a>
 
-
+</div>
 
 <jsp:include page="../../includes/footerOffice.jsp"></jsp:include>

@@ -44,13 +44,6 @@
 	
 	
 	  <nav class="my-2 my-md-0 mr-md-3 navbar-dark">
-	  
-	  
-		<c:if test="${'Admin' eq Usuario_login.nombre }">
-	    <a class="py-2 d-none d-md-inline-block  ${ ( 'listado' eq param.pagina ) ? 'active' : '' }" href="lista">Perfumes</a>
-	    <a class="py-2 d-none d-md-inline-block ${ ( 'marcas' eq param.pagina ) ? 'active' : '' }" href="marcas">Marcas</a>
-		<a class="py-2 d-none d-md-inline-block ${ ( 'usuarios' eq param.pagina ) ? 'active' : '' }" href="usuarios">Usuarios</a>
-		</c:if>
 		
 		<c:if test="${not empty Usuario_login }">
 		<a class="py-2 d-none d-md-inline-block text-primary active" ${('Admin' eq Usuario_login.nombre)? 'href="views/backoffice/inicio"' : 'href="views/frontoffice/inicio"'} >Perfil ${Usuario_login.nombre}</a>

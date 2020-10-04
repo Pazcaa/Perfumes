@@ -1,21 +1,27 @@
 package modelo.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import javax.naming.NamingException;
 
 import modelo.crud.CrudAble;
 import modelo.pojo.Perfume;
+import modelo.pojo.ResumenTotal;
 import modelo.pojo.ResumenUsuario;
 
 public interface PerfumeDAO extends CrudAble<Perfume>{
 
+	
 	/**
 	 * metodo para validar producto nuevo incorporado
-	 * @param id int numero unico de identificación
+	 * @param id int numero unico de identificación del perfume
+	 * @return 
+	 * @throws Exception
+	 * @throws SeguridadException
 	 */
 	
-	void validar (int id);
+	Perfume validar (int id) throws Exception, SeguridadException;
 	
 	/**
 	 * Elimina un perfume asociado a un usuario, un usuario solo puede eliminar sus perfumes y no los de otros
@@ -53,6 +59,13 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	ArrayList<Perfume> getAllByUser (int id_usuario, boolean isValidado );
 	
 	/**
+	 * Obtiene todos los perfumes, agrupados por validaos y pendientes
+	 * @param isValidado boolean true muestra todos los perfumes validados, false para mostrar los pendienets de validar
+	 * @return  {@code ArrayList<Perfume>}
+	 */
+	ArrayList<Perfume> getAllDetalle (boolean isValidado );
+	
+	/**
 	 *  Obtiene los ultimos registros ordenador por id descentente
 	 * @param numReg int numero de registros a recuperar
 	 * @return {@code ArrayList<Perfume>}
@@ -77,6 +90,12 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	 */
 	ResumenUsuario getResumenByUsuario (int idUsuario);
 	
+	/**
+	 * Obtiene el numero total de perfumes validados y de perfumes pendientes
+	 * @param resumen boolean true para mostrar lla estadistica
+	 * @return el nuemro de productos validados y el nuemro de products pendientes
+	 */
+	ResumenTotal getResumentTotal(boolean resumen);
 	
 	/**
 	 * Actualización de algún o algunos parametros de un perfume perteneciente a un usuario particular
