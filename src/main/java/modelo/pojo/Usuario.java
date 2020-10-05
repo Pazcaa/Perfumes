@@ -12,7 +12,7 @@ public class Usuario {
 	@Size(min = 3 , max = 100 , message = "Debe tener entre 3 y 100 caracteres")
 	private String nombre;
 	
-	@Size(min = 4, max = 10, message = "debe contener entre 4 y 10 caracteres")
+	@Size(min = 4, max = 32, message = "debe contener entre 4 y 10 caracteres")// 32 corresponde a la longitud de MD5
 	private String password;
 	
 	@NotBlank(message = "Se debe ingresar la URL de la  imagen")

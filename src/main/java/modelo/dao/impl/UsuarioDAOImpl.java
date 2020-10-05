@@ -49,6 +49,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 													" FROM usuario u , rol r   " + 
 													" WHERE u.id_rol = r.id AND u.nombre = ? AND u.password = ? ;  ";
 		
+		private final String SQL_BUSCAR_NOMBRE	  = " SELECT u.id, u.nombre, u.password , u.imagen, r.id, r.nombre  " + 
+													" FROM usuario u , rol r   " + 
+													" WHERE u.id_rol = r.id AND u.nombre = ? ;  ";
+		
 		// excecuteUpdate => AffectedRows (numero de filas afectadas)
 		private final String SQL_INSERT = "INSERT INTO usuario (nombre, password, imagen, id_rol ) VALUES ( ? ,?, ?, ?); ";
 		private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ? ; "; // si no escribo 'where id = ?' me cargo toda la lista!!!
@@ -219,5 +223,31 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		usuario.setRol(rol);
 		
 		return usuario;
+	}
+
+	public boolean buscarByNombre(String nombre) {
+		boolean nombreEncontrado = false;
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_BUSCAR_NOMBRE);
+
+		) {
+
+			pst.setString(1 , nombre);
+
+			LOG.debug(pst);
+			try (ResultSet rs = pst.executeQuery()) {
+
+				if (rs.next()) {
+					nombreEncontrado = true;
+				} 
+
+			} // 2º try
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		
+		return nombreEncontrado;
 	}
 }

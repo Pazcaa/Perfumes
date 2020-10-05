@@ -28,5 +28,8 @@
   <!-- custom js -->
   <script src="js/custom.js"></script> 
   
+  <!-- cifrado en MD5 -->
+ 	<script src="js/md5.min.js"></script>
+  
 </body>
 </html>

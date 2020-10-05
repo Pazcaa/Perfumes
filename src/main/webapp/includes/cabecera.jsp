@@ -19,7 +19,7 @@
       <!-- datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     
-     <!-- datatables -->
+     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
     

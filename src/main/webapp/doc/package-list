@@ -1,4 +1,5 @@
 controller
+controller.api
 controller.backoffice
 controller.frontoffice
 listener

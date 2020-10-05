@@ -14,35 +14,26 @@
 	<div class="row">
 		<div class="col-9">
 			<form action="new_login" method="post">
-				<div class="form-group">		
-					<label for="id">Id</label>
-					<input type="text" class="form-control" name="id" id="id" value="${Usuario.id}"  readonly>
-				</div>	
+				
 				<div class="form-group">	
 					<label for="nombre">Nombre de Usuario</label>
-					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${Usuario.nombre}" 
+					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${usuario.nombre}" 
 							placeholder="Debe tener entre 2 y 100 caracteres" autofocus required>
 				</div>	
 				<div class="form-group">
 					<label for="password">Contraseña</label>
-					<input type="password" class="form-control" name="password" id="password" value="${Usuario.password}" placeholder="el formato mas pequeño es de 5 ml" required>
-				</div>	
+					<input type="password" class="form-control" name="password" id="password" value="" placeholder="debe contener al menos 4 caracteres" required>
+				</div>
+				
+				<div class="form-group">
+					<label for="repassword">Repetir Contraseña</label>
+					<input type="password" class="form-control" name="repassword" id="repassword" value="" placeholder="repetir contraseña" required>
+				</div>
+					
 				<div class="form-group">
 					<label for="imagen">Imagen del Usuario</label>
-					<input type="text" class="form-control" name="imagen" id="imagen" value="${Usuario.imagen}" placeholder="ingresar el URL de la imagen" >
+					<input type="text" class="form-control" name="imagen" id="imagen" value="${usuario.imagen}" placeholder="ingresar el URL de la imagen" >
 				</div>	
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-					    <label class="input-group-text" for="idRol">Rol</label>
-					</div>
-					  <select class="custom-select" id="idRol" name="idRol">
-					    <option value = "0" >Elige...</option>
-					    	<c:forEach items="${Rol}" var="rol" >
-								<option value="${rol.id }" ${(rol.id eq Usuario.rol.id)? "selected" : "" }>${rol.nombre}</option>
-							</c:forEach>
-					  </select>
-				</div>
-								
 				
 				<div class="form-group">
 					<input type="submit" class="btn-primary" name="guardar" value="Guardar">
@@ -50,7 +41,7 @@
 			</form>
 		</div>
 		<div class="col-3">
-			<img class="img-thumbnail img-form"  alt="Imagen Perfume" src="${Usuario.imagen}">
+			<img class="img-thumbnail img-form"  alt="Imagen Usuario" src="${usuario.imagen}">
 		</div>
 	</div>
 

@@ -16,9 +16,9 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	/**
 	 * metodo para validar producto nuevo incorporado
 	 * @param id int numero unico de identificación del perfume
-	 * @return 
-	 * @throws Exception
-	 * @throws SeguridadException
+	 * @return pojo perfume
+	 * @throws Exception en caso que el pojo asociado al id no se haya podido validar
+	 * @throws SeguridadException en caso de no contar con permisos para acceder a la informcaion del id
 	 */
 	
 	Perfume validar (int id) throws Exception, SeguridadException;
@@ -44,7 +44,7 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	Perfume getById(int idPerfume, int idUsuario) throws Exception, SeguridadException;
 	
 	/**
-	 * SE obtienen todos los datos del pojo Perfume asociados a un nombre
+	 * Se obtienen todos los datos del pojo Perfume asociados a un nombre
 	 * @param nombre String etiqueta identificatoria unica del perfume
 	 * @return {@code ArrayList<Perfume>}
 	 */
@@ -54,7 +54,7 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	 * Obtiene todos los productos de un usuario, estos pueden estar validados o no
 	 * @param id_usuario int identificador del usuario
 	 * @param isValidado boolean true para mostrar los productos con fecha_validacion, false para mostrar los pendientes de validar
-	 * @return en caso de que no se puedan mostrar los perfumes asociados a ese usuario
+	 * @return {@code ArrayList<Perfume>}
 	 */
 	ArrayList<Perfume> getAllByUser (int id_usuario, boolean isValidado );
 	
@@ -86,14 +86,14 @@ public interface PerfumeDAO extends CrudAble<Perfume>{
 	/**
 	 * Obtiene datos estadisticos del Usuario y sus productos
 	 * @param idUsuario int identificador del usuario
-	 * @return entrega nmero de perfumes aprobados, pendientes y total de cada usuario
+	 * @return entrega numero de perfumes aprobados, pendientes y total de cada usuario
 	 */
 	ResumenUsuario getResumenByUsuario (int idUsuario);
 	
 	/**
 	 * Obtiene el numero total de perfumes validados y de perfumes pendientes
 	 * @param resumen boolean true para mostrar lla estadistica
-	 * @return el nuemro de productos validados y el nuemro de products pendientes
+	 * @return el numero de productos validados y el nuemro de products pendientes
 	 */
 	ResumenTotal getResumentTotal(boolean resumen);
 	

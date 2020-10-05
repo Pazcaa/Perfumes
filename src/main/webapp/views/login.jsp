@@ -13,7 +13,7 @@
 <h1 class="text-center display-4 font-weight-normal">Iniciar Sesion</h1>
 
 <div id="login">
-	<form action="login" method="post">
+	<form action="login" method="post" onsubmit="cifrar()">
 	
 		<div class="form-group">	
 			<label for="nombre">Nombre de Usuario</label>
@@ -29,7 +29,7 @@
 		</div>
 	</form>
 	
-	<p>¿No eres usuario aún? Registrate <a href="new_login">Aquí</a></p>
+	<p>¿No eres usuario aún? Registrate <a href="registro">Aquí</a></p>
 	
 </div>
 
