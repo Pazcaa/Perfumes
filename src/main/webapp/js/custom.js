@@ -3,6 +3,60 @@
           // seleccion por id => #example y ejecuta el plugin .DataTable();
           $('#table').DataTable();
       });
+
+function init() {
+	console.log('Documento cargado y listo');
+	
+};
+
+function buscarUsuario(event) {
+	 //console.debug(event);
+	 const nombre = event.target.value;
+	 console.debug(`valor del input ${nombre}`);
+	 
+	 let elNombreHelp = document.getElementById('nombreHelp');
+	 let elLogIn = document.getElementById('logIn');
+
+		const endpointURL ='http://localhost:8080/perfumes/api/usuario?nombre='+nombre;
+		console.debug('endpoint %s', endpointURL);
+		
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				  if (this.readyState == 4 && this.status == 200) {
+		
+					console.debug('response esta lista status %s texto %s ', this.status, this.responseText);
+					
+						elNombreHelp.innerHTML = 'nombre no disponible';
+					  	elNombreHelp.classList.add('text-danger');
+					  	elNombreHelp.classList.remove('text-success');
+						elLogIn.setAttribute('disabled','disabled');
+				
+					
+					}
+						if (this.readyState == 4 && this.status == 204) {
+						elNombreHelp.innerHTML = 'nombre disponible';
+						elNombreHelp.classList.add('text-success');
+						elNombreHelp.classList.remove('text-danger');
+						elLogIn.removeAttribute('disabled');
+					}
+						
+				 }
+			
+				xhttp.open("GET", endpointURL, true);
+				//ATENCION: esto hace la peticion,
+				//pero como es asincrono, debemos programar la respuesta dentro del metodo xhttp.onreadystatechange
+				xhttp.send();
+				};
+				
+/**
+ * Cambia el tipo de un input para que sea 'text' o 'password'
+ * @param idElemnt id del elemento a cambiar
+ */
+function showHidePass(idElement){
+
+	let elInput = document.getElementById(idElement);	
+	elInput.type = ( elInput.type == 'password' ) ? 'text' : 'password';
+};
       
       function confirmar(nombre) {
     		
@@ -45,3 +99,7 @@ function cifrar() {
 		return true; // si ponemos false no se envia el formulario
 		
 };
+
+
+
+

@@ -17,7 +17,8 @@
 				
 				<div class="form-group">	
 					<label for="nombre">Nombre de Usuario</label>
-					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${usuario.nombre}" 
+					<small id="nombreHelp" class="form-text"></small>
+					<input 	type="text" class="form-control"  name="nombre" id="nombre" value="${usuario.nombre}" onkeyUp="buscarUsuario(event)" 
 							placeholder="Debe tener entre 2 y 100 caracteres" autofocus required>
 				</div>	
 				<div class="form-group">
@@ -36,7 +37,7 @@
 				</div>	
 				
 				<div class="form-group">
-					<input type="submit" class="btn-primary" name="guardar" value="Guardar">
+					<input type="submit" class="btn-primary" id="logIn" name="guardar" value="Guardar">
 				</div>
 			</form>
 		</div>

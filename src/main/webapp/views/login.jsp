@@ -22,7 +22,8 @@
 		</div>	
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" class="form-control" name="password" id="password" value="${Usuario_login.password}" placeholder="debe contener entre 4 y 10 caracteres" required>
+			<input type="password" class="form-control" name="password" id="password" value="${Usuario_login.password}" placeholder="debe contener entre 4 y 10 caracteres" required >
+			<i class="fas fa-eye" onclick="showHidePass('password')"></i>
 		</div>	
 		<div class="form-group">
 			<input type="submit" class="btn-primary" name="login" value="Iniciar Sesion">
