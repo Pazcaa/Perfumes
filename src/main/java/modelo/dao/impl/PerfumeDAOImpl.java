@@ -54,7 +54,7 @@ public class PerfumeDAOImpl implements PerfumeDAO{
 									"	WHERE p.id_marca = m.id  AND p.id_usuario = u.id ";
 		
 		private final String ORDER_LIMIT500 = "ORDER by p.id DESC LIMIT 500;";
-		private final String ORDER_LIMIT = "ORDER by p.id DESC LIMIT ?;";
+		private final String ORDER_LIMIT = "ORDER by p.fecha_validado DESC LIMIT ?;";
 	
 		// executeQUery => ResultSet
 		

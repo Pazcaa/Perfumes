@@ -27,9 +27,10 @@
 			    <div class="card-body">
 			      <h5 class="card-title">${perfume.nombre}</h5>
 			      <p class="card-text">${perfume.marca.nombre}</p>
+			       <p class="card-text text-primary">${perfume.precio} €</p>
 			    </div>
 			    <div class="card-footer">
-			      <small class="text-muted">${perfume.ml} ml</small>
+			      <small class=" text-danger">${perfume.ml} ml</small>
 			    </div>
 			   	
 			  </div>

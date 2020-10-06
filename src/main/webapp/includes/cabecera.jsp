@@ -30,6 +30,9 @@
 	
 	<div class="container d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
 	  <h5 class="my-0 mr-md-auto font-weight-normal text-primary"><a href="inicio"><i class="far fa-gem fa-lg"></i><i class="fas fa-gem fa-lg"></i><i class="far fa-gem fa-lg"></i></a></h5>
+	 <div> 
+	  <a class="btn btn-outline-primary" href="doc/index.html" target="_blank" >Java Doc</a>
+	 </div>
 	<div class="dropdown">
 		  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    Marcas
@@ -50,6 +53,7 @@
 		</c:if>
 		
 	  </nav>
+	  
 	   	<c:if test="${empty Usuario_login}">
 	  		<a class="btn btn-outline-primary ${ ( 'login' eq param.pagina ) ? 'active' : '' }" href="login">Iniciar Sesion</a>
 		</c:if>
