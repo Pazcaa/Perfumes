@@ -21,7 +21,47 @@ import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 
 /**
- * Controlador para la creación de nuevos usuarios.
+ * <p>Controlador para la creación de nuevos usuarios.</p>
+ * 
+ *  <p>METODO GET</p>
+ *  <p>Presenta un formulario para poder crear un nuevo usuario</p>
+	 * <p>Parametros:</p>
+	 * <dl>
+	 * 		<dt>no recibe ninguno </dt>
+	 * 		
+	 * </dl>
+	 * <p>Atributos:</p>
+	 *  <dl>
+	 * 		<dt>usuario</dt>
+	 * 		<dd>nuevo Usuario()</dd>
+	 * </dl>
+	 * 
+	 * <p>Finalmente hace un forward hacia "/views/new_usuario.jsp"</p>
+	 * 
+ *  <p>METODO POST</p>
+ *  <p>Recoge los valores ingresado por medio de los parametros en el formulario existente, 
+	 * realizando una validación de los nuevos datos del pojo usuario().</p>
+	 * <p>Parametros:</p>
+	 * <dl>
+	 * 		<dt>nombre</dt>
+	 * 			<dd>String con el nombre de usuario</dd>
+	 * 		<dt>password</dt>
+	 * 			<dd>String de la password codificada en MD5</dd>
+	 * 		<dt>repassword</dt>
+	 * 			<dd>String confirmación de la password, codificada en MD5</dd>
+	 * 		<dt>imagen</dt>
+	 * 			<dd>String con la url de la imagen del usuario</dd>
+	 * </dl>
+	 * <p>Atributos:</p>
+	 *  <dl>
+	 * 		<dt>usuario</dt>
+	 * 			<dd>pojo con la información del nuevo Usuario() creado</dd>
+	 * 		<dt>message</dt>
+	 * 			<dd>Mensaje automatico que indica si la accion de inserción se ha realizado con exito o ha tenido problemas</dd>
+	 * </dl>
+	 * 
+	 * <p>Finalmente hace un forward hacia "/views/new_usuario.jsp" en caso de no haber realizado la inserción, o 
+	 * una redirección a la pagina inicial por medio de un SendRedirect. </p>
  */
 @WebServlet("/registro")
 public class CrearUsuarioController extends HttpServlet {
@@ -30,8 +70,6 @@ public class CrearUsuarioController extends HttpServlet {
 	private static UsuarioDAOImpl daoUsuario = UsuarioDAOImpl.getInstance();
 	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private static Validator validator = factory.getValidator();
-
- 
 	/**
 	 * Presenta un formulario para poder crear un nuevo usuario
 	 * Parametros:

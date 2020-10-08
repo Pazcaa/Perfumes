@@ -4,12 +4,21 @@
           type="javax.sql.DataSource"
           auth="Container"
           name="jdbc/super"
-          driverClassName="com.mysql.jdbc.Driver"
-          url="jdbc:mysql://localhost:3306/perfumes"
-          username="debian-sys-maint"
-          password="o8lAkaNtX91xMUcV"
+          driverClassName="com.mysql.jdbc.Driver" 
+          url="jdbc:mysql://localhost:36972/perfumes"
+          username="ipartek"
+          password="ipartek"
           maxActive="100"
           maxIdle="30"
           maxWait="10000"          
       />
  </Context>
+ 
+ <!-- url="jdbc:mysql://localhost:3306/perfumes" (Desarrollo) 
+ 
+  			username="debian-sys-maint"
+          	password="o8lAkaNtX91xMUcV" --> 
+          
+  <!-- url="jdbc:mysql://localhost:36972/perfumes" (Produccion) 
+  			username="ipartek"
+          	password="ipartek"   --> 
